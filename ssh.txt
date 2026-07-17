@@ -1,0 +1,2179 @@
+
+
+private_key = 256 SHA256:IdgUSK5nxYxEnRN/fM61tS+oKz8VQsWBZi2m1jVUagI beparimamun708@gmail.com (ED25519)
+public_key = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHaJ6t0k0j1xHv3iavO23ICS6eJG2ekJefnPbl06LuTT beparimamun708@gmail.com
+
+
+
+প্রথমে বুঝি SSH কী?
+SSH = Secure Shell
+
+এটি এমন একটি নিরাপদ প্রোটোকল যার মাধ্যমে দুটি কম্পিউটার নিরাপদভাবে একে অপরকে চিনতে এবং যোগাযোগ করতে পারে।
+
+উদাহরণ:
+
+তোমার Laptop  ───────────►  GitHub Server
+
+অথবা
+
+তোমার Laptop  ───────────►  Linux Server (AWS, DigitalOcean, VPS)
+
+Backend Developer হিসেবে তুমি ভবিষ্যতে:
+
+GitHub ব্যবহার করবে
+Linux Server-এ Login করবে
+Django Deploy করবে
+
+এসব ক্ষেত্রেই SSH ব্যবহার হবে।
+
+Password কেন ব্যবহার করি না?
+
+আগে GitHub এমন ছিল:
+
+Username
+Password
+
+কিন্তু এখন GitHub Account Password দিয়ে Git Push/Pull বন্ধ করে দিয়েছে।
+
+কারণ:
+
+Password চুরি হতে পারে।
+অনেক জায়গায় একই Password ব্যবহার করা হয়।
+এটি তুলনামূলক কম নিরাপদ।
+
+তাই এখন GitHub SSH Key বা Personal Access Token ব্যবহার করতে বলে।
+
+SSH Key কী?
+
+SSH Key হলো এক জোড়া চাবি (Key Pair)।
+
+Private Key
+Public Key
+Private Key
+
+এটি শুধুমাত্র তোমার কম্পিউটারে থাকবে।
+
+Laptop
+
+id_ed25519
+
+❌ কখনও কাউকে দেবে না।
+
+Public Key
+
+এটি GitHub-কে দেওয়া হয়।
+
+id_ed25519.pub
+
+এটি সবাই দেখতে পারলেও সমস্যা নেই।
+
+একটি বাস্তব উদাহরণ
+
+ধরো তুমি একটি অফিসে ঢুকবে।
+
+তোমার কাছে একটি চাবি আছে।
+
+অফিসের Security Guard-এর কাছে সেই চাবির মিল আছে।
+
+তোমার চাবি
+        │
+        ▼
+Security মিলিয়ে দেখে
+        │
+        ▼
+দরজা খুলে দেয়
+
+SSH-ও একইভাবে কাজ করে।
+
+SSH Authentication
+Laptop
+Private Key
+        │
+        ▼
+GitHub
+Public Key
+        │
+        ▼
+Match?
+        │
+      YES
+        │
+        ▼
+Access Granted
+
+Password লাগে না।
+
+এখন Step by Step
+Step 1
+ssh -V
+কোথায় চালাবে?
+
+WSL Ubuntu Terminal-এ।
+
+যেখানে তুমি Django Project চালাও।
+
+যেমন:
+
+hp@DESKTOP-EAD3B7A:~$
+
+অথবা
+
+hp@DESKTOP-EAD3B7A:/mnt/c/...$
+কেন?
+
+দেখতে চাই
+
+SSH Program Install আছে কি না।
+
+Output
+OpenSSH_9.6
+
+মানে
+
+SSH ব্যবহার করার সফটওয়্যার Installed।
+
+Step 2
+ls -la ~/.ssh
+ls
+
+List Files
+
+-l
+
+Long Format
+
+-a
+
+Hidden Files-ও দেখাবে।
+
+~
+
+তোমার Home Directory
+
+Linux-এ
+
+/home/hp
+.ssh
+
+SSH Folder
+
+অর্থাৎ
+
+/home/hp/.ssh
+কেন?
+
+দেখতে চাই
+
+আগে কোনো SSH Key আছে কি না।
+
+যদি দেখো
+
+id_ed25519
+
+id_ed25519.pub
+
+মানে
+
+SSH Key আগে থেকেই আছে।
+
+Step 3
+ssh-keygen -t ed25519 -C "your_email"
+ssh-keygen
+
+মানে
+
+SSH Key Generator
+
+-t
+
+মানে
+
+Type
+
+ed25519
+
+একটি আধুনিক ও নিরাপদ Cryptographic Algorithm।
+
+আগে RSA বেশি ব্যবহৃত হতো, এখন নতুন Project-এর জন্য ed25519 ব্যবহার করাই ভালো।
+
+-C
+
+মানে
+
+Comment
+
+এখানে সাধারণত Email লেখা হয়।
+
+যেমন
+
+mamun@gmail.com
+
+এটি শুধু Key চিনতে সাহায্য করে।
+
+এরপর কেন Enter চাপি?
+/home/hp/.ssh/id_ed25519
+
+এটাই Default Location।
+
+আমরা এটিই ব্যবহার করব।
+
+Passphrase কী?
+
+এটি Private Key-এর জন্য অতিরিক্ত Password।
+
+Private Key
+
+↓
+
+Password
+
+↓
+
+GitHub
+
+শুরুতে Empty রাখা যায়।
+
+Professional Environment-এ Passphrase দেওয়া ভালো।
+
+Step 4
+eval "$(ssh-agent -s)"
+ssh-agent কী?
+
+ভাবো
+
+Private Key প্রতিবার হাতে করে GitHub-কে দিতে হবে।
+
+খুব ঝামেলা।
+
+তাই
+
+ssh-agent
+
+Private Key RAM-এ ধরে রাখে।
+
+Private Key
+
+↓
+
+ssh-agent
+
+↓
+
+Git Push
+
+↓
+
+Automatically Use Key
+Step 5
+ssh-add ~/.ssh/id_ed25519
+
+মানে
+
+আমার Private Key
+
+SSH Agent-এর কাছে জমা রাখো।
+
+Step 6
+cat ~/.ssh/id_ed25519.pub
+cat
+
+মানে
+
+File-এর Content দেখাও।
+
+Output
+
+ssh-ed25519 AAAA.....
+
+এটাই Public Key।
+
+কেন Copy করি?
+
+GitHub-কে দিতে হবে।
+
+Step 7
+
+GitHub Website
+
+↓
+
+Settings
+
+↓
+
+SSH and GPG Keys
+
+↓
+
+New SSH Key
+
+↓
+
+Paste
+
+কেন?
+
+GitHub-কে বলতে হবে
+
+এই Public Key যার,
+
+সে আমার Account ব্যবহার করতে পারবে।
+Step 8
+ssh -T git@github.com
+-T
+
+মানে
+
+Interactive Shell খুলবে না।
+
+শুধু Authentication Test করবে।
+
+GitHub বলবে
+
+Hi mamun-2025
+
+Authentication Successful
+
+মানে
+
+সব ঠিক আছে।
+
+এরপর
+
+আগে তোমার Repository-এর Remote URL ছিল
+
+https://github.com/...
+
+আমরা সেটিকে পরিবর্তন করব
+
+↓
+
+git@github.com:...
+
+এটাই SSH URL।
+
+Backend Developer হিসেবে কেন এটি গুরুত্বপূর্ণ?
+
+আজ GitHub-এর জন্য শিখছ।
+
+কিন্তু একই SSH ধারণা পরে ব্যবহার করবে:
+
+GitHub
+GitLab
+Bitbucket
+AWS EC2
+DigitalOcean Droplet
+VPS
+Ubuntu Server
+Django Deployment
+Nginx Server
+Gunicorn Deployment
+
+অর্থাৎ SSH শেখা শুধু GitHub-এর জন্য নয়—Linux Server Administration-এরও ভিত্তি।
+
+
+
+
+### SSH Practice — Step 1
+🎯 লক্ষ্য
+
+দেখব তোমার WSL Ubuntu-তে SSH ইনস্টল আছে কিনা।
+
+Terminal খুলো
+
+WSL Ubuntu Terminal খুলে নিচের কমান্ডটি চালাও:
+
+ssh -V
+
+খেয়াল করো: এখানে -V বড় হাতের (capital V), ছোট -v নয়।
+
+এই কমান্ড কী করে?
+ssh → OpenSSH Client চালায়।
+-V → Version দেখায়।
+
+এটি কোনো সার্ভারে কানেক্ট করে না, শুধু SSH সফটওয়্যার ইনস্টল আছে কিনা জানায়।
+
+Expected Output
+
+এরকম কিছু দেখতে পারো:
+
+OpenSSH_9.6p1 Ubuntu-3ubuntu13.8, OpenSSL 3.0.13 30 Jan 2024
+
+বা
+
+OpenSSH_9.8p1
+
+Version ভিন্ন হতে পারে, এটা স্বাভাবিক।
+
+যদি Error আসে
+
+যেমন:
+
+ssh: command not found
+
+তাহলে SSH ইনস্টল নেই। আমরা পরে সেটা ইনস্টল করব।
+
+কেন এটা গুরুত্বপূর্ণ?
+
+GitHub-এ SSH Key ব্যবহার করতে হলে প্রথমে SSH Client ইনস্টল থাকতে হবে।
+
+
+
+
+### SSH Practice — Step 2
+🎯 লক্ষ্য
+
+দেখব তোমার Home Directory-তে .ssh ফোল্ডার আছে কিনা এবং আগে থেকে কোনো SSH Key তৈরি করা আছে কিনা।
+
+কমান্ড
+
+WSL Ubuntu Terminal-এ চালাও:
+
+ls -la ~/.ssh
+কমান্ডটি ভেঙে বুঝি
+ls
+
+➡️ ফাইল ও ফোল্ডারের তালিকা দেখায়।
+
+-l
+
+➡️ Long Format-এ দেখায় (Permission, Owner, Size, Date ইত্যাদি)।
+
+-a
+
+➡️ Hidden Files-ও দেখায়।
+
+Linux-এ . দিয়ে শুরু হওয়া ফাইল/ফোল্ডার Hidden হয়।
+
+যেমন:
+
+.ssh
+.bashrc
+.gitconfig
+~
+
+➡️ Home Directory বোঝায়।
+
+তোমার ক্ষেত্রে সম্ভবত:
+
+/home/hp
+
+অথবা
+
+/home/<তোমার_ইউজারনেম>
+~/.ssh
+
+মানে:
+
+/home/<username>/.ssh
+
+এটাই SSH-এর Default Folder।
+
+যদি আগে Key তৈরি না করে থাকো
+
+সম্ভবত এরকম Error আসবে:
+
+ls: cannot access '/home/hp/.ssh': No such file or directory
+
+✅ এটা একদম স্বাভাবিক। এর মানে এখনও কোনো SSH Key তৈরি হয়নি।
+
+যদি আগে Key তৈরি করা থাকে
+
+এরকম কিছু দেখতে পারো:
+
+total 16
+drwx------ 2 hp hp 4096 Jul 18 21:15 .
+drwxr-x--- 8 hp hp 4096 Jul 18 21:10 ..
+-rw------- 1 hp hp 411 Jul 18 21:15 id_ed25519
+-rw-r--r-- 1 hp hp  99 Jul 18 21:15 id_ed25519.pub
+এই ফাইলগুলোর মানে
+File	কাজ
+id_ed25519	🔒 Private Key (কখনও শেয়ার করবে না)
+id_ed25519.pub	🌐 Public Key (GitHub-এ যোগ করা হবে)
+নিরাপত্তার গুরুত্বপূর্ণ নিয়ম
+
+✅ id_ed25519.pub শেয়ার করা নিরাপদ।
+
+❌ id_ed25519 (Private Key) কখনো কারও কাছে দেবে না, GitHub-এও আপলোড করবে না।
+
+
+
+### SSH Practice — Step 3
+🎯 লক্ষ্য
+
+একটি SSH Key Pair তৈরি করা।
+
+🔒 Private Key (id_ed25519)
+🌐 Public Key (id_ed25519.pub)
+কমান্ড
+
+Terminal-এ চালাও:
+
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+এখানে "your_email@example.com" এর জায়গায় তোমার GitHub Account-এর Email Address লিখবে।
+
+উদাহরণ:
+
+ssh-keygen -t ed25519 -C "mamun@example.com"
+কমান্ডটি ভেঙে বুঝি
+ssh-keygen
+
+SSH Key Generator।
+
+এটি Key Pair তৈরি করে।
+
+-t
+
+মানে Type।
+
+-t ed25519
+
+মানে
+
+ed25519 Algorithm ব্যবহার করে Key তৈরি করো।
+
+বর্তমানে নতুন Project-এর জন্য এটিই Recommended।
+
+-C
+
+মানে Comment।
+
+-C "mamun@example.com"
+
+এটি শুধু Key চিনতে সাহায্য করে। নিরাপত্তার জন্য নয়।
+
+এরপর কী দেখাবে?
+
+প্রথমে:
+
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/hp/.ssh/id_ed25519):
+কী করবে?
+
+শুধু Enter চাপবে।
+
+কারণ Default Location-টাই ব্যবহার করব।
+
+এরপর:
+
+Enter passphrase (empty for no passphrase):
+Passphrase কী?
+
+এটি Private Key-এর জন্য অতিরিক্ত Password।
+
+শুরুতে শেখার সময় চাইলে খালি রেখে Enter চাপতে পারো।
+
+তারপর আবার জিজ্ঞেস করবে:
+
+Enter same passphrase again:
+
+আবার Enter চাপবে।
+
+সফল হলে
+
+এরকম Output দেখাবে:
+
+Generating public/private ed25519 key pair.
+Your identification has been saved in /home/hp/.ssh/id_ed25519
+Your public key has been saved in /home/hp/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+কী কী তৈরি হলো?
+~/.ssh/
+│
+├── id_ed25519       🔒 Private Key
+└── id_ed25519.pub   🌐 Public Key
+এখন যাচাই করো
+
+চালাও:
+
+ls -la ~/.ssh
+
+তুমি এরকম কিছু দেখতে পাবে:
+
+id_ed25519
+id_ed25519.pub
+
+
+
+### SSH Practice — Step 4
+SSH Agent (Deep Understanding)
+🎯 আজকের লক্ষ্য
+
+আজ আমরা শিখব:
+
+SSH Agent কী?
+কেন SSH Agent দরকার?
+eval "$(ssh-agent -s)" কী করে?
+eval কী?
+ssh-agent কী?
+প্রথমে একটা সমস্যা বুঝি
+
+ধরো তোমার কাছে একটি Private Key আছে।
+
+~/.ssh/id_ed25519
+
+এখন তুমি GitHub-এ Push করবে।
+
+GitHub বলবে:
+
+"তোমার Private Key কোথায়?"
+
+তুমি যদি প্রতিবার Private Key হাতে করে দেখাতে, তাহলে খুব ঝামেলা হতো।
+
+তাই SSH Agent ব্যবহার করা হয়।
+
+SSH Agent কী?
+
+SSH Agent হলো একটি Background Program (Daemon)।
+
+এটি RAM-এ তোমার Private Key ধরে রাখে।
+
+Workflow:
+
+Private Key
+      │
+      ▼
+SSH Agent (RAM)
+      │
+      ▼
+Git Push / Pull
+      │
+      ▼
+GitHub Authentication
+
+তাই প্রতিবার Key দেখাতে হয় না।
+
+এবার কমান্ড
+
+Terminal-এ চালাও:
+
+eval "$(ssh-agent -s)"
+কমান্ডটি ভেঙে বুঝি
+ssh-agent -s
+
+এটি একটি নতুন SSH Agent চালু করে।
+
+উদাহরণ Output:
+
+SSH_AUTH_SOCK=/tmp/ssh-XXXXXX/agent.1234;
+SSH_AGENT_PID=1235;
+echo Agent pid 1235;
+
+এটি শুধু Text প্রিন্ট করে।
+
+তাহলে eval কেন?
+
+eval সেই Text-কে Command হিসেবে Execute করে।
+
+অর্থাৎ,
+
+ssh-agent -s
+      │
+      ▼
+কিছু Command তৈরি করে
+      │
+      ▼
+eval সেগুলো চালায়
+      │
+      ▼
+Shell-এ Environment Variable সেট হয়
+Environment Variable কী সেট হয়?
+
+মূলত দুটো গুরুত্বপূর্ণ Variable:
+
+SSH_AUTH_SOCK
+SSH_AGENT_PID
+
+এগুলো Shell-কে বলে:
+
+"SSH Agent কোথায় চলছে?"
+
+সফল হলে Output
+
+তুমি এরকম কিছু দেখতে পারো:
+
+Agent pid 4567
+
+বা
+
+Agent pid 12345
+
+PID (Process ID) ভিন্ন হবে, এটা স্বাভাবিক।
+
+এখন কি Private Key ব্যবহার হচ্ছে?
+
+❌ না।
+
+Agent চালু হয়েছে, কিন্তু এখনও কোনো Key এর কাছে জমা নেই।
+
+এখনও Agent খালি।
+
+বর্তমান অবস্থা
+SSH Agent
+     │
+     └── (No Keys Loaded)
+পরের ধাপে কী হবে?
+
+আমরা আমাদের Private Key Agent-এর কাছে জমা দেব।
+
+কমান্ড:
+
+ssh-add ~/.ssh/id_ed25519
+
+তখন অবস্থা হবে:
+
+Private Key
+      │
+      ▼
+SSH Agent
+      │
+      ▼
+GitHub
+
+
+
+### SSH Practice — Step 5
+ssh-add (Deep Understanding)
+🎯 আজকের লক্ষ্য
+
+আজ আমরা শিখব:
+
+ssh-add কী?
+কেন এটি ব্যবহার করি?
+Private Key কীভাবে SSH Agent-এ Load হয়?
+ssh-add -l দিয়ে কীভাবে যাচাই করব?
+এখন পর্যন্ত আমরা কী করেছি?
+
+আমরা:
+
+✅ SSH ইনস্টল আছে কিনা দেখেছি।
+
+✅ SSH Key Pair তৈরি করেছি।
+
+~/.ssh/
+│
+├── id_ed25519       🔒 Private Key
+└── id_ed25519.pub   🌐 Public Key
+
+✅ SSH Agent চালু করেছি।
+
+SSH Agent
+      │
+      └── (Empty)
+
+এখন Agent চালু আছে, কিন্তু তার কাছে কোনো Key নেই।
+
+এবার কী করব?
+
+আমরা আমাদের Private Key Agent-এর কাছে "জমা" দেব।
+
+কমান্ড:
+
+ssh-add ~/.ssh/id_ed25519
+কমান্ডটি ভেঙে বুঝি
+ssh-add
+
+এর কাজ:
+
+একটি Private Key SSH Agent-এর মধ্যে Load করা।
+
+~/.ssh/id_ed25519
+
+এটি তোমার Private Key-এর Path।
+
+মনে রাখবে:
+
+id_ed25519
+
+🔒 Private Key
+
+এবং
+
+id_ed25519.pub
+
+🌐 Public Key
+
+ssh-add-এ কখনো .pub ফাইল দেবে না।
+
+Command চালাও
+ssh-add ~/.ssh/id_ed25519
+সফল হলে Output
+Identity added: /home/hp/.ssh/id_ed25519 (mamun@example.com)
+
+বন্ধনীর মধ্যে তোমার Email বা Comment দেখা যেতে পারে।
+
+এখন কী হলো?
+
+আগে:
+
+Private Key
+
+(শুধু File হিসেবে ছিল)
+
+এখন:
+
+Private Key
+      │
+      ▼
+SSH Agent (RAM)
+      │
+      ▼
+Git Push / Pull
+
+এখন Git যখন Authentication চাইবে, SSH Agent স্বয়ংক্রিয়ভাবে Private Key ব্যবহার করবে।
+
+কীভাবে নিশ্চিত হব?
+
+চালাও:
+
+ssh-add -l
+-l কী?
+
+-l = list
+
+মানে:
+
+SSH Agent-এ বর্তমানে কোন কোন Key Load আছে তা দেখাও।
+
+Expected Output
+256 SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxx mamun@example.com (ED25519)
+
+এখানে দেখতে পাবে:
+
+Key Type → ED25519
+Fingerprint → SHA256:...
+Comment → তোমার Email
+যদি Output হয়
+The agent has no identities.
+
+তাহলে বুঝবে Key এখনও Load হয়নি।
+
+আবার:
+
+ssh-add ~/.ssh/id_ed25519
+
+চালাতে হবে।
+
+Workflow
+Generate Key
+      │
+      ▼
+id_ed25519
+      │
+      ▼
+ssh-add
+      │
+      ▼
+SSH Agent
+      │
+      ▼
+GitHub Authentication
+Practice
+
+ক্রম অনুযায়ী চালাও:
+
+ssh-add ~/.ssh/id_ed25519
+
+তারপর:
+
+ssh-add -l
+
+যদি দ্বিতীয় কমান্ডে তোমার ED25519 Key দেখায়, তাহলে এই ধাপ সফল।
+
+
+### SSH Practice — Step 6
+Public Key দেখা ও কপি করা (Deep Understanding)
+🎯 আজকের লক্ষ্য
+
+আজ আমরা শিখব:
+
+cat কী?
+Public Key কীভাবে দেখব?
+Public Key-এর Structure
+Public Key কেন নিরাপদ?
+Private Key কেন গোপন?
+প্রথমে cat কী?
+
+cat এর পূর্ণরূপ concatenate।
+
+সবচেয়ে সাধারণ ব্যবহার:
+
+একটি File-এর ভিতরের Content Terminal-এ দেখানো।
+
+উদাহরণ:
+
+cat hello.txt
+
+যদি hello.txt-এ লেখা থাকে:
+
+Hello World
+
+তাহলে Terminal-এ দেখাবে:
+
+Hello World
+এবার আমাদের Public Key দেখি
+
+চালাও:
+
+cat ~/.ssh/id_ed25519.pub
+Output কেমন হবে?
+
+এরকম একটি এক লাইনের লেখা দেখাবে:
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBxYv... mamun@example.com
+
+এটি লম্বা হবে, কিন্তু একই লাইনে থাকবে।
+
+এই লাইনের তিনটি অংশ
+
+ধরো Output হলো:
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGk8mK... mamun@example.com
+
+এটি তিনটি অংশে ভাগ করা যায়।
+
+১. Key Type
+ssh-ed25519
+
+এটি বলে:
+
+এই Key ED25519 Algorithm দিয়ে তৈরি।
+
+২. Public Key Data
+AAAAC3NzaC1lZDI1NTE5AAAAIGk8mK...
+
+এটাই আসল Public Key।
+
+এটি Base64-Encoded Data।
+
+GitHub এই অংশ ব্যবহার করে তোমার Private Key-এর সাথে মিল খুঁজে।
+
+৩. Comment
+mamun@example.com
+
+এটি শুধু Key চিনতে সুবিধা দেয়।
+
+Authentication-এর জন্য জরুরি নয়।
+
+Public Key কেন নিরাপদ?
+
+ধরো তোমার বাড়ির একটি তালা আছে।
+
+তালা (Public Key) সবাই দেখতে পারে।
+
+কিন্তু চাবি (Private Key) শুধু তোমার কাছে থাকে।
+
+Private Key
+      │
+      ▼
+Public Key
+      │
+      ▼
+Mathematical Relationship
+
+Public Key দেখে Private Key বের করা বাস্তবসম্মতভাবে সম্ভব নয়।
+
+Private Key কেমন?
+
+এটি কখনো Terminal-এ দেখানোর বা শেয়ার করার দরকার নেই।
+
+যদি চালাও:
+
+cat ~/.ssh/id_ed25519
+
+এটি Private Key দেখাবে।
+
+⚠️ এটি কখনো Screenshot, GitHub, Facebook, Discord বা কারও কাছে পাঠাবে না।
+
+GitHub-এ কী যাবে?
+
+শুধু:
+
+id_ed25519.pub
+
+এর Content।
+
+কখনোই:
+
+id_ed25519
+
+না।
+
+Workflow
+Generate SSH Key
+        │
+        ▼
+id_ed25519        🔒 Private
+id_ed25519.pub    🌐 Public
+        │
+        ▼
+Copy Public Key
+        │
+        ▼
+Paste into GitHub
+Practice
+
+WSL Terminal-এ চালাও:
+
+cat ~/.ssh/id_ed25519.pub
+
+তারপর পুরো এক লাইনের Output কপি করো।
+
+এখনই আমাকে পাঠানোর দরকার নেই। বরং Clipboard-এ Copy করে রাখো, কারণ পরের ধাপে GitHub-এ Paste করব।
+
+
+### SSH Practice — Step 7
+GitHub-এ SSH Public Key যোগ করা (Deep Understanding)
+🎯 আজকের লক্ষ্য
+
+আজ আমরা শিখব:
+
+GitHub-এ SSH Key কোথায় যোগ করতে হয়
+Title কী?
+Key Type কী?
+কেন Public Key GitHub-এ যোগ করতে হয়?
+GitHub কীভাবে Authentication করে?
+প্রথমে বুঝি GitHub কেন Public Key চায়?
+
+তোমার কাছে আছে:
+
+🔒 Private Key
+
+GitHub-এর কাছে থাকবে:
+
+🌐 Public Key
+
+যখন তুমি Git Push করবে, তখন GitHub পরীক্ষা করবে:
+
+তোমার Private Key
+        │
+        ▼
+GitHub-এর Public Key-এর সাথে মিল আছে?
+        │
+        ▼
+YES
+        │
+        ▼
+Access Granted ✅
+
+এখানে Private Key কখনও তোমার কম্পিউটার ছেড়ে GitHub-এ যায় না।
+
+Step 7.1
+GitHub-এ Login করো
+
+Browser-এ GitHub Account-এ Login করো।
+
+Step 7.2
+
+উপরের ডানদিকে তোমার Profile Picture-এ ক্লিক করো।
+
+তারপর
+
+Settings
+
+এ ক্লিক করো।
+
+Step 7.3
+
+বাম পাশের Menu থেকে নিচে স্ক্রল করে খুঁজে বের করো:
+
+SSH and GPG keys
+
+এখানে ক্লিক করো।
+
+Step 7.4
+
+এখন ক্লিক করো:
+
+New SSH key
+একটি Form আসবে
+
+এরকম:
+
+Title: ___________________
+
+Key type: Authentication Key
+
+Key:
+_____________________________________
+_____________________________________
+
+[ Add SSH Key ]
+Title কী হবে?
+
+Title শুধু তুমি চিনতে পারার জন্য।
+
+উদাহরণ:
+
+HP Laptop
+
+অথবা
+
+WSL Ubuntu
+
+অথবা
+
+Personal Laptop
+
+এটি যেকোনো বর্ণনামূলক নাম হতে পারে।
+
+Key Type
+
+ডিফল্ট হিসেবে থাকবে:
+
+Authentication Key
+
+এটাই রাখবে।
+
+Signing Key নির্বাচন করবে না।
+
+Key
+
+এখানে Paste করবে:
+
+cat ~/.ssh/id_ed25519.pub
+
+এই কমান্ড থেকে পাওয়া পুরো এক লাইনের Public Key।
+
+উদাহরণ:
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... mamun@example.com
+
+শুধু Public Key।
+
+তারপর
+
+ক্লিক করো:
+
+Add SSH Key
+GitHub কী করবে?
+
+GitHub তোমার Public Key নিজের Database-এ সংরক্ষণ করবে।
+
+GitHub Database
+
+↓
+
+Public Key
+এখন কী হলো?
+
+আগে:
+
+Laptop
+
+Private Key
+
+GitHub
+
+(তোমাকে চিনত না)
+
+এখন:
+
+Laptop
+Private Key
+        │
+        ▼
+GitHub
+Public Key
+        │
+        ▼
+Authentication Ready ✅
+গুরুত্বপূর্ণ নিরাপত্তা নিয়ম
+
+GitHub-এ শুধু:
+
+id_ed25519.pub
+
+যাবে।
+
+কখনও:
+
+id_ed25519
+
+Upload করবে না।
+
+Workflow
+Generate Key
+      │
+      ▼
+Public Key
+      │
+      ▼
+GitHub Settings
+      │
+      ▼
+SSH and GPG Keys
+      │
+      ▼
+New SSH Key
+      │
+      ▼
+Paste Public Key
+      │
+      ▼
+Add SSH Key
+Practice
+
+১. GitHub-এ Login করো।
+
+২. যাও:
+
+Profile Picture
+    ↓
+Settings
+    ↓
+SSH and GPG keys
+    ↓
+New SSH key
+
+৩. Title লিখো:
+
+WSL Ubuntu
+
+৪. id_ed25519.pub-এর Content Paste করো।
+
+৫. Add SSH Key-এ ক্লিক করো।
+
+
+
+### SSH Practice — Step 8
+SSH Authentication Test (Deep Understanding)
+🎯 আজকের লক্ষ্য
+
+আজ আমরা শিখব:
+
+ssh -T git@github.com কী করে?
+-T কী?
+git@github.com কি Email?
+প্রথমবার কেন Fingerprint Verification আসে?
+yes কেন লিখতে হয়?
+সফল Authentication কিভাবে বুঝবে?
+প্রথমে Command
+
+WSL Terminal-এ চালাও:
+
+ssh -T git@github.com
+Command ভেঙে বুঝি
+ssh
+
+SSH Client চালু করে।
+
+git@github.com
+
+অনেকে মনে করে এটা Email।
+
+❌ এটা Email নয়।
+
+এখানে:
+
+git
+
+হলো GitHub Server-এর SSH User।
+
+এবং
+
+github.com
+
+হলো GitHub-এর Server।
+
+অর্থাৎ
+
+git@github.com
+
+মানে
+
+GitHub-এর SSH Server-এ git User হিসেবে Connect হও।
+
+-T
+
+-T এর অর্থ:
+
+Disable pseudo-terminal allocation
+
+সহজ ভাষায়:
+
+Interactive Shell খুলবে না।
+
+আমরা GitHub Server-এ Login করে Command চালাতে চাই না।
+
+আমরা শুধু জানতে চাই:
+
+Authentication ঠিকমতো কাজ করছে কি না?
+
+তাই -T ব্যবহার করি।
+
+প্রথমবার কী হতে পারে?
+
+প্রথমবার Connect করলে Terminal জিজ্ঞেস করতে পারে:
+
+The authenticity of host 'github.com (140.82.xxx.xxx)' can't be established.
+
+ED25519 key fingerprint is:
+
+SHA256:+DiY3wvvV6TuJJhbpZisF/YT...
+
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+এটা কেন আসে?
+
+ধরো তুমি প্রথমবার একটি অফিসে যাচ্ছ।
+
+তুমি Guard-কে চেনো না।
+
+Guard-ও তোমাকে চেনে না।
+
+প্রথমে দুজনেই নিশ্চিত হবে যে ঠিক জায়গায় এসেছ।
+
+SSH-ও একই কাজ করে।
+
+Host Key কী?
+
+GitHub-এরও একটি Public Identity আছে।
+
+প্রথমবার SSH বলে:
+
+"আমি যে সত্যিই GitHub, সেটা বিশ্বাস করবে?"
+
+তুমি যদি বিশ্বাস করো:
+
+yes
+
+লিখে Enter চাপো।
+
+এরপর কী হবে?
+
+GitHub-এর Host Key তোমার কম্পিউটারে সংরক্ষণ হবে।
+
+সাধারণত এখানে:
+
+~/.ssh/known_hosts
+known_hosts কী?
+
+এটি এমন একটি File যেখানে তোমার কম্পিউটার আগে যেসব Server-কে বিশ্বাস করেছে, তাদের তালিকা থাকে।
+
+উদাহরণ:
+
+~/.ssh/
+
+id_ed25519
+id_ed25519.pub
+known_hosts
+এরপর সফল হলে Output
+
+এরকম দেখতে পাবে:
+
+Hi mamun-2025! You've successfully authenticated,
+but GitHub does not provide shell access.
+এই Message-এর মানে
+Hi mamun-2025!
+
+GitHub তোমার Account চিনেছে।
+
+You've successfully authenticated
+
+SSH Authentication সফল হয়েছে।
+
+GitHub does not provide shell access
+
+GitHub কোনো Linux Shell দেয় না।
+
+এটা একদম স্বাভাবিক।
+
+GitHub SSH ব্যবহার করে শুধু:
+
+Git Push
+Git Pull
+Git Clone
+Git Fetch
+
+এসব কাজের জন্য।
+
+যদি Error আসে
+Error 1
+Permission denied (publickey).
+
+মানে:
+
+GitHub তোমার Public Key খুঁজে পায়নি বা মিলেনি।
+
+সম্ভাব্য কারণ:
+
+Public Key GitHub-এ যোগ করা হয়নি।
+ssh-add করা হয়নি।
+ভুল Key ব্যবহার হচ্ছে।
+Error 2
+Could not resolve hostname github.com
+
+মানে:
+
+Internet বা DNS সমস্যা।
+
+পুরো Authentication Workflow
+Laptop
+│
+├── Private Key
+│
+├── SSH Agent
+│
+└───────────────► GitHub
+                  │
+                  ├── Public Key
+                  │
+                  └── Match?
+                          │
+                       YES ✅
+                          │
+                  Authentication Success
+
+Practice
+
+WSL Terminal-এ চালাও:
+
+ssh -T git@github.com
+
+যদি প্রথমবার প্রশ্ন করে:
+
+Are you sure you want to continue connecting?
+
+তাহলে লিখো:
+
+yes
+
+তারপর Enter চাপো।
+
+যদি দেখো:
+
+Hi <তোমার GitHub Username>! You've successfully authenticated...
+
+তাহলে অভিনন্দন! 🎉
+
+তোমার GitHub SSH Setup সম্পূর্ণ সফল হয়েছে।
+
+
+
+### SSH Practice — Step 9
+Git Remote: HTTPS ➜ SSH (Deep Understanding)
+🎯 আজকের লক্ষ্য
+
+আজ আমরা শিখব:
+
+Git Remote কী?
+origin কী?
+git remote -v
+HTTPS URL বনাম SSH URL
+git remote set-url origin
+কীভাবে Verify করব?
+প্রথমে বুঝি Remote কী?
+
+ধরো তোমার Laptop-এ একটি Git Project আছে।
+
+Laptop
+│
+└── Django Project
+
+এবং GitHub-এ একই Project আছে।
+
+GitHub
+│
+└── Django Repository
+
+Git-কে জানতে হবে:
+
+"GitHub-এ ঠিক কোন Repository-এর সাথে আমি কাজ করব?"
+
+এই সংযোগকেই Remote বলে।
+
+Workflow
+Laptop Git Repository
+          │
+          ▼
+       Remote
+          │
+          ▼
+GitHub Repository
+Remote দেখতে
+
+Terminal-এ Project Folder-এর ভিতরে যাও।
+
+তারপর চালাও:
+
+git remote -v
+-v কী?
+
+-v = verbose
+
+মানে বিস্তারিত তথ্য দেখাও।
+
+যদি HTTPS ব্যবহার করো
+
+Output হবে এরকম:
+
+origin  https://github.com/mamun-2025/django-project.git (fetch)
+origin  https://github.com/mamun-2025/django-project.git (push)
+Output ব্যাখ্যা
+origin
+
+এটি Remote-এর নাম।
+
+ডিফল্টভাবে GitHub Repository যোগ করলে Git নাম দেয়:
+
+origin
+
+তুমি চাইলে অন্য নামও দিতে পারো, কিন্তু ৯৯% ক্ষেত্রে origin-ই ব্যবহার করা হয়।
+
+(fetch)
+
+মানে:
+
+GitHub থেকে Code নামাবে।
+
+যেমন:
+
+git pull
+git fetch
+(push)
+
+মানে:
+
+GitHub-এ Code পাঠাবে।
+
+যেমন:
+
+git push
+এখন HTTPS-এর সমস্যা
+
+HTTPS URL:
+
+https://github.com/mamun-2025/django-project.git
+
+এতে Authentication-এর জন্য HTTPS ব্যবহার হয়।
+
+আমরা চাই SSH ব্যবহার করতে।
+
+SSH URL কোথায় পাব?
+
+GitHub Repository-তে যাও।
+
+সবুজ Code Button-এ ক্লিক করো।
+
+তারপর:
+
+HTTPS
+SSH
+GitHub CLI
+
+এর মধ্যে SSH নির্বাচন করো।
+
+তুমি এরকম URL পাবে:
+
+git@github.com:mamun-2025/django-project.git
+Remote পরিবর্তন করা
+
+চালাও:
+
+git remote set-url origin git@github.com:mamun-2025/django-project.git
+
+এখানে:
+
+origin = Remote-এর নাম
+শেষে তোমার নিজের Repository-এর SSH URL হবে।
+Command ভেঙে বুঝি
+git remote
+
+Remote Management Command।
+
+set-url
+
+মানে:
+
+আগের URL বদলে নতুন URL সেট করো।
+
+origin
+
+যে Remote পরিবর্তন করবে।
+
+git@github.com:...
+
+নতুন SSH URL।
+
+Verify করো
+
+আবার চালাও:
+
+git remote -v
+
+এখন Output হবে:
+
+origin  git@github.com:mamun-2025/django-project.git (fetch)
+origin  git@github.com:mamun-2025/django-project.git (push)
+
+দেখো, https:// আর নেই।
+
+এখন Workflow
+git push
+      │
+      ▼
+SSH
+      │
+      ▼
+SSH Agent
+      │
+      ▼
+Private Key
+      │
+      ▼
+GitHub
+
+Password লাগবে না।
+
+HTTPS বনাম SSH
+HTTPS	                                 SSH
+https://github.com/...	                git@github.com:...
+Password/PAT লাগে	                SSH Key ব্যবহার করে
+বারবার Authentication লাগতে পারে	একবার Setup করলে সহজ
+ছোট কাজের জন্য ঠিক আছে	             Professional Standard
+
+
+
+### SSH Practice — Step 10
+Professional Git Workflow (Deep Understanding)
+🎯 আজকের লক্ষ্য
+
+আজ আমরা শিখব:
+
+git clone
+git init
+git add
+git commit
+git push
+git pull
+git fetch
+git status
+git remote add origin
+
+এবং একটি Project শুরু থেকে GitHub-এ Push করার সম্পূর্ণ Workflow।
+
+Git Workflow Overview
+Create Project
+      │
+      ▼
+git init
+      │
+      ▼
+git add
+      │
+      ▼
+git commit
+      │
+      ▼
+git remote add origin
+      │
+      ▼
+git push
+      │
+      ▼
+GitHub Repository
+Scenario 1 — নতুন Project তৈরি
+
+ধরো তুমি নতুন Django Project শুরু করেছ।
+
+my_project/
+
+এখন Git চালু করো:
+
+git init
+কী হয়?
+
+Git Project-এর ভিতরে একটি Hidden Folder তৈরি করে:
+
+my_project/
+│
+├── .git/
+├── manage.py
+└── ...
+
+.git-এর মধ্যে Git-এর সব History, Commit এবং Configuration থাকে।
+
+বর্তমান অবস্থা দেখো
+git status
+
+উদাহরণ:
+
+On branch main
+
+No commits yet
+
+Untracked files:
+    manage.py
+    config/
+git status কেন গুরুত্বপূর্ণ?
+
+এটি Git-এর সবচেয়ে বেশি ব্যবহৃত Command।
+
+এটি বলে:
+
+কোন File নতুন
+কোন File পরিবর্তিত
+কোন File Commit-এর জন্য প্রস্তুত
+File Stage করা
+git add .
+. এর মানে কী?
+
+বর্তমান Folder-এর সব File Stage করো।
+
+Stage কী?
+
+Git তিনটি ধাপে কাজ করে:
+
+Working Directory
+        │
+        ▼
+Staging Area
+        │
+        ▼
+Repository (Commit History)
+Working Directory → যেখানে তুমি File Edit করছ।
+Staging Area → Commit-এর জন্য নির্বাচিত File।
+Repository → স্থায়ী Commit History।
+Commit করা
+git commit -m "Initial Django project"
+-m
+
+মানে Message।
+
+Commit Message এমন হওয়া উচিত যাতে পরে বুঝতে পারো কী পরিবর্তন করেছিলে।
+
+ভালো উদাহরণ:
+
+Initial Django project
+Add Product model
+Complete Products CRUD
+Fix login bug
+GitHub-এর সাথে সংযোগ
+
+যদি আগে Remote না থাকে:
+
+git remote add origin git@github.com:YOUR_USERNAME/YOUR_REPOSITORY.git
+
+এখানে:
+
+origin → Remote-এর নাম
+SSH URL → GitHub Repository-এর ঠিকানা
+প্রথম Push
+git push -u origin main
+-u কেন?
+
+এটি Local Branch (main) এবং Remote Branch (main)-এর মধ্যে সম্পর্ক তৈরি করে।
+
+এরপর থেকে শুধু:
+
+git push
+
+লিখলেই হবে।
+
+Scenario 2 — Existing Project Clone করা
+
+যদি GitHub-এ Project আগে থেকেই থাকে:
+
+git clone git@github.com:YOUR_USERNAME/YOUR_REPOSITORY.git
+কী হবে?
+GitHub
+      │
+      ▼
+Download
+      │
+      ▼
+Laptop
+
+Project এবং সম্পূর্ণ Commit History একসাথে Download হবে।
+
+নতুন পরিবর্তন আনা
+
+যদি Teammate নতুন Commit করে:
+
+git fetch
+git fetch
+নতুন Commit Download করে।
+কিন্তু তোমার Working Files পরিবর্তন করে না।
+পরিবর্তন Merge করা
+git pull
+git pull
+
+আসলে এটি দুটি কাজ একসাথে করে:
+
+git fetch
+      +
+git merge
+
+অর্থাৎ নতুন Code Download করে এবং Local Branch-এ Merge করে।
+
+fetch বনাম pull
+git fetch	git pull
+শুধু Download	Download + Merge
+নিরাপদ Review-এর জন্য ভালো	দ্রুত Update করার জন্য ভালো
+প্রতিদিনের Professional Workflow
+
+সকালে কাজ শুরু:
+
+git pull
+
+কাজ শেষ:
+
+git status
+git add .
+git commit -m "Complete Products App"
+git push
+Backend Developer Workflow
+Morning
+   │
+   ▼
+git pull
+   │
+Code Writing
+   │
+   ▼
+git status
+   │
+   ▼
+git add .
+   │
+   ▼
+git commit -m "Meaningful message"
+   │
+   ▼
+git push
+Command Summary
+Command	কাজ
+git init	নতুন Git Repository তৈরি
+git clone	GitHub থেকে Project Download
+git status	বর্তমান অবস্থা দেখা
+git add .	সব পরিবর্তন Stage করা
+git commit -m "..."	Commit তৈরি
+git push	GitHub-এ Upload
+git pull	নতুন পরিবর্তন Download + Merge
+git fetch	শুধু Download
+git remote -v	Remote দেখা
+Django Project-এর উদাহরণ
+
+ধরো Products App শেষ করলে:
+
+git status
+git add .
+git commit -m "Complete Products App"
+git push
+
+তারপর Students App শেষ করলে:
+
+git add .
+git commit -m "Complete Students CRUD"
+git push
+
+এভাবে প্রতিটি App-এর শেষে একটি পরিষ্কার Commit History তৈরি হবে।
+
+
+
+
+
+###############################################################################
+
+Phase 1 — Git Basics (✅ Completed)
+
+তুমি ইতিমধ্যে শিখেছ:
+
+✅ Git Installation
+✅ git init
+✅ git clone
+✅ git add
+✅ git commit
+✅ git status
+✅ git push
+✅ git pull
+✅ git fetch
+✅ GitHub Repository
+✅ SSH Setup
+✅ HTTPS → SSH
+
+এখন এগুলো ব্যবহার করে একা একটি Project চালাতে পারবে।
+
+Phase 2 — Professional Git Workflow
+
+এখন আমরা এগুলো শিখব।
+
+Part 1 — Git Branching ⭐⭐⭐⭐⭐
+
+এটি সবচেয়ে গুরুত্বপূর্ণ।
+
+শিখব:
+
+Branch কী?
+
+main branch
+
+feature branch
+
+git branch
+
+git switch
+
+git switch -c
+
+git checkout
+
+git merge
+
+git branch -d
+
+git log --graph
+
+উদাহরণ
+
+main
+ │
+ ├───────────────
+ │
+ └── feature/login
+
+Part 2 — Git Ignore ⭐⭐⭐⭐⭐
+
+Backend Developer-এর জন্য খুব গুরুত্বপূর্ণ।
+
+শিখব
+
+.gitignore
+
+__pycache__
+
+*.pyc
+
+.venv/
+
+db.sqlite3
+
+.env
+
+media/
+
+staticfiles/
+
+Django Project-এ কী Ignore করতে হয়।
+
+Part 3 — GitHub Workflow
+
+শিখব
+
+Create Repository
+
+Clone
+
+Push
+
+Fork
+
+Pull
+
+Sync
+Part 4 — Pull Request (PR)
+
+Professional Team Workflow
+
+Developer A
+
+↓
+
+Feature Branch
+
+↓
+
+Push
+
+↓
+
+Pull Request
+
+↓
+
+Code Review
+
+↓
+
+Merge
+
+এটি প্রতিটি Software Company-তে ব্যবহৃত হয়।
+
+Part 5 — Merge Conflict
+
+সব Developer-ই একসময় এই Error-এর মুখোমুখি হয়।
+
+শিখব
+
+Conflict কেন হয়
+
+কীভাবে Resolve করতে হয়
+
+VS Code ব্যবহার করে Resolve
+
+Command Line Resolve
+Part 6 — Git Rebase
+
+Intermediate থেকে Advanced Topic।
+
+শিখব
+
+Merge vs Rebase
+
+Linear History
+
+Interactive Rebase
+
+Squash Commit
+Part 7 — Git Tags
+
+Version Release
+
+v1.0
+
+v1.1
+
+v2.0
+
+Production Deployment-এ ব্যবহৃত হয়।
+
+Part 8 — GitHub Releases
+Release
+
+Source Code
+
+Binary
+
+Release Notes
+
+Open Source Project-এ খুব গুরুত্বপূর্ণ।
+
+Part 9 — Git Stash
+
+ধরো
+
+তুমি কাজ করছ।
+
+হঠাৎ জরুরি Bug Fix করতে হবে।
+
+কাজ Save না করেও
+
+git stash
+
+দিয়ে পরে আবার Continue করতে পারবে।
+
+Part 10 — Professional Team Collaboration
+
+শিখব
+
+Issue
+
+Milestone
+
+Project Board
+
+Code Review
+
+Branch Protection
+
+Review Comment
+Final Git Roadmap
+Phase 1
+✅ Git Basics
+
+        ↓
+
+Phase 2
+Git Branching
+
+        ↓
+
+Git Ignore
+
+        ↓
+
+GitHub Workflow
+
+        ↓
+
+Pull Request
+
+        ↓
+
+Merge Conflict
+
+        ↓
+
+Git Rebase
+
+        ↓
+
+Git Tags
+
+        ↓
+
+GitHub Release
+
+        ↓
+
+Git Stash
+
+        ↓
+
+Professional Team Workflow
+Backend Developer হিসেবে কোনগুলো সবচেয়ে গুরুত্বপূর্ণ?
+Topic	Priority
+Git Branching	⭐⭐⭐⭐⭐
+.gitignore	⭐⭐⭐⭐⭐
+Pull Request	⭐⭐⭐⭐⭐
+Merge Conflict	⭐⭐⭐⭐⭐
+Git Stash	⭐⭐⭐⭐
+Git Rebase	⭐⭐⭐⭐
+Git Tags	⭐⭐⭐
+GitHub Releases	⭐⭐⭐
+Team Collaboration	⭐⭐⭐⭐⭐
+Django Project-এ এগুলোর ব্যবহার
+
+তুমি যখন 01-fundamentals Project বানাবে, তখন বাস্তবে Workflow হবে:
+
+Create Project
+        │
+        ▼
+Git Init
+        │
+        ▼
+Create Products App
+        │
+        ▼
+Feature Branch
+        │
+        ▼
+Commit
+        │
+        ▼
+Push
+        │
+        ▼
+Pull Request
+        │
+        ▼
+Merge
+        │
+        ▼
+Main Branch
+
+
+
+এটাই Professional Software Development Workflow।
+যেহেতু তুমি Zero to Hero এবং Deep Understanding চাও, তাই আমরা এভাবে এগোব:
+
+✅ SSH Course পুরো শেষ করব।
+তারপর Git Course শুরু করব।
+তারপর GitHub Course।
+এরপর Linux Deployment (SSH দিয়ে Server Login)।
+তারপর Django Deployment (Nginx + Gunicorn + PostgreSQL)।
+
+এই ক্রমে গেলে প্রতিটি বিষয় নিজের জায়গায় পরিষ্কারভাবে বসে যাবে 
+এবং কোনো Topic মিশে যাবে না।
