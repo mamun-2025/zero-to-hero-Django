@@ -1,0 +1,1203 @@
+
+
+
+⭐ Updated Zero to Hero Django (30 Apps Roadmap)
+
+🟡 Phase 2 — Database Relationships (Apps 6–10)
+App 6 — School
+
+New Concepts
+
+ForeignKey
+ManyToMany
+
+Models
+
+Teacher
+Course
+Student
+App 7 — Hospital
+
+New Concepts
+
+Multiple Foreign Keys
+
+Models
+
+Doctor
+Patient
+Appointment
+App 8 — Movie Database
+
+New Concepts
+
+ManyToMany
+
+Models
+
+Movie
+Category
+Review
+Actor
+App 9 — Inventory
+
+Models
+
+Supplier
+Category
+Product
+App 10 — Restaurant
+
+Models
+
+Category
+Food
+Order
+🔵 Phase 3 — Authentication (Apps 11–15)
+App 11
+Custom User Model
+Register
+App 12
+Login
+Logout
+Session Authentication
+App 13
+Profile
+Edit Profile
+App 14
+Password Change
+Password Reset
+Email
+App 15
+Permissions
+Groups
+Role Based User
+Admin
+Manager
+Customer
+🟣 Phase 4 — File Handling (Apps 16–18)
+App 16
+
+Image Upload
+
+App 17
+
+Document Upload
+
+App 18
+
+Gallery
+
+Multiple Images
+
+🟠 Phase 5 — Business Logic (Apps 19–22)
+App 19
+
+Shopping Cart
+
+App 20
+
+Wishlist
+
+App 21
+
+Coupon
+
+Discount
+
+Tax
+
+App 22
+
+Order Management
+
+Invoice
+
+Order Status
+
+🔴 Phase 6 — Django REST Framework (Apps 23–26)
+App 23
+
+Product API
+
+Serializer
+ViewSet
+Router
+App 24
+
+Student API
+
+Filtering
+Search
+Pagination
+App 25
+
+JWT Authentication
+
+Login API
+Refresh Token
+Permissions
+App 26
+
+Blog API
+
+Nested Serializer
+CRUD API
+🟤 Phase 7 — Production Projects (Apps 27–30)
+App 27
+
+Mini E-commerce Backend
+
+Authentication
+Products
+Categories
+Cart
+Orders
+App 28
+
+Food Ordering Backend
+
+Restaurant
+Food
+Cart
+Order
+Payment
+App 29
+
+Hospital Backend
+
+Doctor
+Patient
+Appointment
+Prescription
+Medical History
+App 30
+
+Amazon / Daraz Style Backend
+
+Authentication
+Products
+Categories
+Inventory
+Cart
+Wishlist
+Orders
+Payments
+Coupons
+Reviews
+Admin Dashboard
+🛠 প্রতিটি App-এর Standard Workflow
+Create App
+      ↓
+Register App
+      ↓
+Create Models
+      ↓
+Create Migrations
+      ↓
+Migrate Database
+      ↓
+Register Admin
+      ↓
+Create URLs
+      ↓
+Create Views
+      ↓
+Create Templates (যদি প্রয়োজন হয়)
+      ↓
+Browser Test
+      ↓
+Admin Panel Test
+      ↓
+Git Commit
+🚀 প্রতিটি App শেষ হলে Git Commit
+git add .
+git commit -m "Complete Products App"
+
+git commit -m "Complete Students CRUD"
+
+git commit -m "Complete Library Relationships"
+
+git commit -m "Complete Employee Forms"
+
+git commit -m "Complete Blog Templates"
+
+এভাবে প্রতিটি App-এর জন্য একটি পরিষ্কার commit history থাকবে।
+
+🎯 Roadmap শেষে তুমি যা শিখবে
+✅ Django Project Structure
+✅ Django Apps
+✅ Models
+✅ Django ORM
+✅ Admin Panel
+✅ URL Routing
+✅ Function-Based Views (FBV)
+✅ Class-Based Views (CBV)
+✅ Templates
+✅ Static & Media Files
+✅ Forms & ModelForms
+✅ CRUD Operations
+✅ Relationships (ForeignKey, ManyToManyField, OneToOneField)
+✅ Authentication & Authorization
+✅ Custom User Model
+✅ File Upload
+✅ Pagination
+✅ Search & Filtering
+✅ Django REST Framework (DRF)
+✅ Serializers
+✅ ViewSets & Routers
+✅ JWT Authentication
+✅ Permissions
+✅ Production-style Backend Architecture
+✅ Git Workflow
+একটি গুরুত্বপূর্ণ পরামর্শ
+
+আমি এই ৩০টি App-কে ৩০টি আলাদা Django Project হিসেবে বানানোর পরামর্শ দেব না। 
+তার বদলে এগুলোকে কয়েকটি Learning Project-এ ভাগ করলে বাস্তব কাজের অভিজ্ঞতা বেশি হবে। 
+উদাহরণস্বরূপ:
+Core_Django/
+│
+├── 01-fundamentals/
+│   ├── .venv/
+│   ├── manage.py
+│   ├── config/
+│   ├── products/
+│   ├── students/
+│   ├── library/
+│   ├── employees/
+│   └── blog/
+│
+├── 02-relationships/
+│   ├── .venv/
+│   ├── manage.py
+│   ├── config/
+│   ├── school/
+│   ├── hospital/
+│   ├── movie/
+│   ├── inventory/
+│   └── restaurant/
+│
+├── 03-auth/
+│   ├── .venv/
+│   ├── manage.py
+│   ├── config/
+│   ├── accounts/
+│   ├── profiles/
+│   ├── uploads/
+│   └── gallery/
+│
+├── 04-business-api/
+│   ├── .venv/
+│   ├── manage.py
+│   ├── config/
+│   ├── cart/
+│   ├── wishlist/
+│   ├── orders/
+│   ├── coupons/
+│   ├── api/
+│   └── drf/
+│
+├── 05-production/
+│   ├── .venv/
+│   ├── manage.py
+│   ├── config/
+│   ├── ecommerce/
+│   ├── payments/
+│   ├── accounts/
+│   ├── products/
+│   ├── orders/
+│   └── ...
+│
+├── notes/
+└── README.md
+
+
+
+Option 1 (Recommended ⭐⭐⭐⭐⭐)
+প্রতিটি Django Project-এর আলাদা Virtual Environment থাকবে।
+
+মানে
+01-fundamentals
+      │
+      └── .venv
+
+02-relationships
+      │
+      └── .venv
+
+03-auth
+      │
+      └── .venv
+
+এভাবে।
+কেন?
+
+ধরো
+আজ
+Django==5.2
+ব্যবহার করছ।
+
+এক বছর পরে
+Django==6.0
+শিখবে।
+তখন পুরোনো Project নষ্ট হবে না।
+
+ধরো
+Production Project এ
+
+psycopg
+redis
+celery
+gunicorn
+ইনস্টল করলে
+Fundamentals Project-এ এগুলো লাগবে না।
+অপ্রয়োজনীয় Package ইনস্টল হবে না।
+
+আরেকটা Example
+Project-1
+Django
+
+Project-2
+Django
+DRF
+
+Project-3
+Django
+DRF
+JWT
+সব Project-এর Dependency আলাদা থাকবে।
+এটাই Professional Practice।
+
+তাহলে কতগুলো venv হবে?
+তোমার Roadmap অনুযায়ী
+
+01-fundamentals
+      │
+      └── .venv
+
+02-relationships
+      │
+      └── .venv
+
+03-auth
+      │
+      └── .venv
+
+04-business-api
+      │
+      └── .venv
+
+05-production
+      │
+      └── .venv
+
+অর্থাৎ
+৫টি Django Project = ৫টি Virtual Environment
+
+VS Code-এ কী হবে?
+তুমি যখন
+01-fundamentals
+Open করবে
+Interpreter হবে
+01-fundamentals/.venv
+
+যখন
+02-relationships
+Open করবে
+Interpreter হবে
+02-relationships/.venv
+
+Folder-এর বাইরে একটা venv দিব?
+যেমন
+Core_Django/
+.venv
+01-fundamentals
+02-relationships
+03-auth
+❌ না।
+শেখার জন্যও এটা ভালো Practice না।
+
+
+প্রতিটি Project-এর ভিতরে কী থাকবে?
+01-fundamentals/
+.venv/
+manage.py
+requirements.txt
+.gitignore
+db.sqlite3
+config/
+products/
+students/
+library/
+employees/
+blog/
+
+
+প্রতিটি Project শেষ হলে
+pip freeze > requirements.txt
+
+Git Commit
+git add .
+
+git commit -m "Complete Django Fundamentals"
+আমার চূড়ান্ত Recommendation
+
+তুমি যেহেতু ভবিষ্যতে Backend Engineer হিসেবে কাজ করতে চাও, 
+তাই এখন থেকেই "এক Project = এক Virtual Environment" এই অভ্যাস গড়ে তোলো।
+
+
+
+
+
+#############################################################################
+Django Basic-এর পরে শেখা ভালো
+🎯 Phase 11 Roadmap
+Part 1
+✅ Process vs Thread
+✅ Threading Basics
+✅ Thread Class
+✅ start()
+✅ join()
+✅ daemon Thread
+
+Part 2
+✅ ThreadPoolExecutor
+✅ submit()
+✅ map()
+✅ as_completed()
+✅ Backend Examples
+
+Part 3
+✅ Multiprocessing
+✅ Process
+✅ ProcessPoolExecutor
+✅ CPU Bound Tasks
+✅ Backend Examples
+
+Part 4
+✅ Async Programming
+✅ async def
+✅ await
+✅ asyncio.run()
+✅ asyncio.sleep()
+
+Part 5
+✅ asyncio.gather()
+✅ Concurrent Tasks
+✅ Error Handling
+✅ Timeout
+✅ Backend Examples
+
+Part 6
+✅ aiohttp
+✅ Async API Requests
+✅ Async Web Scraping
+✅ Download Multiple URLs
+✅ JSON Response
+
+Part 7
+✅ 50 Practice Problems
+
+Part 8
+✅ 10 Mini Backend Projects
+
+______________________________________________________________________________________________________________
+📘 Phase 12: Socket Programming
+Part 1
+1. Network Basics
+2. IP Address
+3. Port
+4. Socket কী?
+5. TCP vs UDP
+6. Client vs Server
+
+Part 2
+7. socket Module
+8. TCP Server
+9. TCP Client
+10. send()
+11. recv()
+
+Part 3
+12. Multiple Clients
+13. Threading + Socket
+14. Echo Server
+15. Chat Server (Basic)
+
+Part 4
+16. UDP Socket
+17. TCP vs UDP Performance
+18. Backend Examples
+19. Django-তে Socket কোথায় কাজে লাগে?
+20. Practice Problems
+
+#########################################################################
+
+
+
+
+
+
+
+আমার সুপারিশ:
+Phase 15: ৪–৫টি Mini Project
+Phase 16–17: সেগুলোতে Authentication ও Advanced Features যোগ করে Practice
+Phase 18: একটি Full Production-Level E-commerce Backend (এটাই GitHub-এর flagship project হবে)
+Phase 19: একই Project Docker, Redis, Celery, PostgreSQL, Gunicorn, Nginx এবং Deployment দিয়ে Production Ready করবে।
+
+এইভাবে একটি Project-ই তোমার শেখার পুরো যাত্রার সঙ্গে evolve করবে 
+এবং Interview-তে দেখানোর মতো শক্তিশালী Portfolio Project হয়ে উঠবে।
+
+
+#################################################################
+DJANGO ROADMAP:
+📗 Phase 15 — Django Fundamentals
+Part 1
+1. Django কী?
+2. Django Architecture (MVT)
+3. Django Setup
+4. Virtual Environment
+5. Django Installation
+6. First Project
+
+Part 2
+1. Project Structure
+2. manage.py
+3. settings.py
+4. urls.py
+5. wsgi.py
+6. asgi.py
+
+Part 3
+1. App Structure
+2. Creating App
+3. apps.py
+4. admin.py
+5. models.py
+6. views.py
+
+Part 4
+1. URL Routing
+2. path()
+3. include()
+4. URL Parameters
+5. Reverse URL
+6. Namespaces
+
+Part 5
+1. Views
+2. Function Based View (FBV)
+3. Class Based View (CBV)
+4. HttpRequest
+5. HttpResponse
+6. JsonResponse
+. Tags
+6. Template Inheritance
+
+Part 7
+1. Static Files
+2. Media Files
+3. CSS
+4. JS
+5. Images
+6. collectstatic
+
+Part 8
+1. Models
+2. Fields
+3. Relationships
+4. Migrations
+5. Admin Panel
+6. Shell
+
+Part 9
+1. Django ORM
+2. CRUD
+3. filter()
+4. exclude()
+5. get()
+6. select_related()
+7. prefetch_related()
+
+তারপর Advanced ORM
+যখন Foundation শেষ হবে তখন শিখবে:
+✅ annotate()
+✅ aggregate()
+✅ F() Expressions
+✅ Q() Objects
+✅ Subquery()
+✅ OuterRef()
+✅ Exists()
+✅ bulk_create()
+✅ bulk_update()
+✅ transaction.atomic()
+
+
+Part 10
+1. Django Forms
+2. ModelForm
+3. Validation
+4. Clean Methods
+5. CSRF
+
+
+📘 Phase 16 — Django Authentication & Authorization
+1. User Model
+2. Custom User Model
+3. Login
+4. Logout
+5. Registration
+6. Password Hashing
+7. Permissions
+8. Groups
+9. Decorators
+10. Mixins
+11. Authentication Backends
+12. JWT Introduction
+
+
+📙 Phase 17 — Advanced Django
+1. Middleware
+2. Signals
+3. Sessions
+4. Cookies
+5. Caching
+6. Logging
+7. Email
+8. File Upload
+9. Pagination
+10. Custom Management Commands
+
+
+📕 Phase 18 — Django REST Framework
+1. DRF Setup
+2. Serializer
+3. APIView
+4. Generic Views
+5. ViewSets
+6. Routers
+7. Authentication
+8. Permissions
+9. Pagination
+10. Filtering
+11. Throttling
+12. JWT
+
+
+📒 Phase 19 — Production Django
+1. PostgreSQL
+2. Redis
+3. Celery
+4. Docker
+5. Gunicorn
+6. Nginx
+7. Deployment
+8. CI/CD Basics
+9. Monitoring
+10. Security
+
+
+
+
+
+#########################################################################
+Phase 16 — Git & GitHub
+কখন শিখবে?
+
+👉 Phase 15 Part 3 (App Structure) শেষ হওয়ার পরই।
+
+অর্থাৎ Django Project বানাতে শেখার সাথে সাথেই।
+
+কেন?
+
+কারণ তখন থেকেই Project Version Control করা উচিত।
+
+তখন তুমি শিখবে
+git init
+
+git status
+
+git add
+
+git commit
+
+git log
+
+.gitignore
+
+এরপর Project বড় হলে
+
+git branch
+
+git checkout
+
+git switch
+
+git merge
+
+git rebase
+
+তারপর
+
+GitHub
+
+push
+
+pull
+
+clone
+
+fork
+
+pull request
+Git Timeline
+Django Setup
+
+↓
+
+First Project
+
+↓
+
+First App
+
+↓
+
+Git Start
+
+Git একেবারে শেষে শেখা উচিত নয়।
+
+Phase 17 — Testing
+কখন?
+
+👉 Phase 18 (DRF) শেষ হওয়ার পরে।
+
+কারণ Testing করার মতো Code তখন থাকবে।
+
+যদি Project-ই না থাকে,
+
+Testing করবে কী?
+
+তখন শিখবে
+
+unittest
+
+pytest
+
+pytest-django
+
+fixtures
+
+factory_boy
+
+mocking
+
+coverage
+
+বাস্তব Example
+
+Login API Test
+
+def test_login():
+    ...
+
+Product API Test
+
+def test_create_product():
+    ...
+
+Order API Test
+
+def test_checkout():
+    ...
+Phase 18 — API Documentation
+কখন?
+
+👉 DRF শেখার সাথে সাথেই।
+
+কারণ
+
+Swagger API ছাড়া ব্যবহারই করা যায় না।
+
+তখন শিখবে
+
+Swagger
+
+OpenAPI
+
+drf-spectacular
+
+Postman
+
+API Collections
+
+Example
+
+Product API
+
+GET /products/
+
+POST /products/
+
+DELETE /products/1/
+
+PUT /products/1/
+
+Swagger এগুলো সুন্দরভাবে দেখাবে।
+
+আমি Roadmap এভাবে করতাম
+Phase 15
+Django Fundamentals
+Phase 16
+Git
+
+GitHub
+
+Git Workflow
+Phase 17
+Authentication
+
+Authorization
+Phase 18
+Advanced Django
+Phase 19
+DRF
+Phase 20
+Swagger
+
+OpenAPI
+
+Postman
+Phase 21
+Testing
+
+pytest
+
+mock
+
+coverage
+Phase 22
+Redis
+
+Celery
+Phase 23
+Docker
+
+Gunicorn
+
+Nginx
+
+Deployment
+Final Professional Roadmap
+Python
+        ↓
+OOP
+        ↓
+SQL
+        ↓
+PostgreSQL
+        ↓
+Django Fundamentals
+        ↓
+Git & GitHub
+        ↓
+E-commerce Project Start
+        ↓
+Authentication
+        ↓
+Advanced Django
+        ↓
+Django REST Framework
+        ↓
+Swagger + OpenAPI + Postman
+        ↓
+Testing (pytest)
+        ↓
+Redis
+        ↓
+Celery
+        ↓
+Docker
+        ↓
+Gunicorn
+        ↓
+Nginx
+        ↓
+Deployment
+আমার একটি অতিরিক্ত পরামর্শ
+
+তোমার লক্ষ্য যেহেতু Python/Django Backend Engineer হিসেবে চাকরি করা, 
+তাই Git & GitHub কখনো দেরি করে শিখো না। 
+Django-এর বেসিক Project Structure বোঝার পরই Git ব্যবহার শুরু করো। 
+এরপর থেকে প্রতিটি Project-এ Commit করার অভ্যাস গড়ে তোলো।
+
+অন্যদিকে Testing এবং API Documentation তখনই সবচেয়ে বেশি অর্থবহ হবে, যখন তোমার DRF API তৈরি হয়ে যাবে। 
+তখন এগুলো বাস্তব Project-এর ওপর শিখতে পারবে, ফলে অনেক সহজে মনে থাকবে এবং Interview-তেও আত্মবিশ্বাসের সাথে ব্যাখ্যা করতে পারবে।
+
+
+
+
+
+
+
+###################################################################################################
+
+"""
+User Authentication শেখার আগে শুধু Login Page বানানো নয়, Authentication-এর পুরো Flow বুঝতে হবে।
+
+🟢 User Authentication Practice Roadmap
+🥇 Level 1 (Django Built-in Authentication)
+Task 1
+
+একটি App তৈরি করো।
+
+accounts
+Task 2
+
+INSTALLED_APPS-এ যোগ করো।
+
+Task 3
+
+Home View বানাও।
+
+/
+Task 4
+
+Register View বানাও।
+
+/register/
+Task 5
+
+Login View বানাও।
+
+/login/
+Task 6
+
+Logout View বানাও।
+
+/logout/
+Task 7
+
+Profile View বানাও।
+
+/profile/
+Task 8
+
+যদি Login না থাকে
+
+/profile/
+
+এ ঢুকতে না পারে।
+
+Hint:
+
+@login_required
+Task 9
+
+Navigation-এ দেখাও
+
+Guest
+
+নাকি
+
+Mamun
+Task 10
+
+যদি Login থাকে
+
+Register Page
+
+এ যেতে না পারে।
+
+🥈 Level 2 (User Model)
+
+Practice:
+
+User তৈরি
+
+User.objects.create_user(...)
+
+User Search
+
+User.objects.get(...)
+
+Password Check
+
+authenticate(...)
+
+Login
+
+login(...)
+
+Logout
+
+logout(...)
+🥉 Level 3 (Profile System)
+
+Default User-এর সাথে
+
+OneToOne
+
+Relation।
+
+User
+
+↓
+
+Profile
+
+Profile Picture
+
+Phone
+
+Address
+
+Bio
+
+🏆 Level 4 (Permission)
+
+Admin
+
+Staff
+
+Normal User
+
+Decorator
+
+@login_required
+
+Permission
+
+is_staff
+
+is_superuser
+🏆 Level 5 (Password)
+
+Change Password
+
+Forgot Password
+
+Reset Password
+
+Email Link
+
+🏆 Level 6 (Email Verification)
+
+Registration
+
+↓
+
+Email Send
+
+↓
+
+Click Link
+
+↓
+
+Account Active
+
+🏆 Level 7 (OTP)
+
+OTP Generate
+
+↓
+
+OTP Verify
+
+↓
+
+Login
+
+🏆 Level 8 (Custom User Model)
+AbstractUser
+
+Email Login
+
+Phone Login
+
+🏆 Level 9 (JWT)
+
+DRF
+
+↓
+
+JWT
+
+↓
+
+Access Token
+
+↓
+
+Refresh Token
+
+🏆 Level 10 (Production)
+
+Google Login
+
+GitHub Login
+
+Remember Me
+
+Account Lock
+
+Session Timeout
+
+🎯 Final Authentication Project
+accounts/
+
+│
+
+├── models.py
+
+├── views.py
+
+├── urls.py
+
+├── forms.py
+
+├── signals.py
+
+├── templates/
+
+│      ├── login.html
+
+│      ├── register.html
+
+│      ├── profile.html
+
+│
+
+└── static/
+আমার Recommendation
+
+তুমি একসাথে সব Feature বানাবে না।
+
+এই Order-এ শেখো:
+
+Register
+      ↓
+Login
+      ↓
+Logout
+      ↓
+Profile
+      ↓
+Login Required
+      ↓
+Change Password
+      ↓
+Forgot Password
+      ↓
+Email Verification
+      ↓
+Custom User
+      ↓
+JWT Authentication
+🚀 Django Interview Ready Authentication
+
+এই ১০টি Feature শেষ করতে পারলে তুমি Authentication-এর প্রায় সব গুরুত্বপূর্ণ বিষয় শিখে ফেলবে। 
+এরপর E-commerce, Hospital Management, Inventory Management বা Blog API-এর মতো Project-এ একই Authentication System পুনঃব্যবহার করতে পারবে।
+
+"""
