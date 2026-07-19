@@ -1,6 +1,6 @@
 
 
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html>
 
 <head>
@@ -23,4 +23,42 @@
    
 </body>
 
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Products</title>
+</head>
+
+<body>
+   <h1>Products</h1>
+
+   {% if products %}
+
+      {% for product in products %}
+
+         <h3>{{ product.name }}</h3>
+
+         <p>Price: {{ product.price }}</p>
+         
+         <p>Stock: {{ product.stock }}</p>
+
+         <p>Created_at: {{ product.created_at }}</p>
+
+         <p>Updated_at: {{ product.updated_at }}</p>
+
+         <hr>
+
+      {% endfor %}
+   
+   {% else %}
+
+      <p>No products found.</p>
+   
+   {% endif %}
+
+</body>
 </html>

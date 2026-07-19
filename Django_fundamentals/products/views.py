@@ -15,20 +15,40 @@
 
 
 
+# from django.shortcuts import render
+
+# def product_list(request):
+
+#    context = {
+#       "title": "My Store",
+#       "product_name": "Laptop",
+#       "price": 50000,
+#       "stock": 20,
+#       "brand": "HP",
+#    }
+
+#    return render(
+#       request,
+#       "products/product_list.html",
+#       context  
+#    )
+
+
+
 from django.shortcuts import render
+from .models import Product
 
 def product_list(request):
 
+   products = Product.objects.all()
+
    context = {
-      "title": "My Store",
-      "product_name": "Laptop",
-      "price": 50000,
-      "stock": 20,
-      "brand": "HP",
+      "products": products,
    }
 
    return render(
       request,
       "products/product_list.html",
-      context  
+      context,
    )
+
