@@ -7,5 +7,6 @@ urlpatterns = [
     # path("home/", views.home),
     # path("about/", views.about),
     # path("contact/", views.contact),
+    path("<int:id>/", views.product_detail, name="product_detail"),
     
 ]
