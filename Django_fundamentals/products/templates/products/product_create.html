@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Product Create</title>
+<head>
+<body>
+
+   <h1>Product Create</h1>
+
+   <form method="POST">
+      
+      {% csrf_token %}
+
+   <p>
+      <label>Name</label>
+      <input type="text" name="name">
+   </p>
+
+   <p>
+      <label>Price</label>
+      <input type="number" step="0.01" name="price">
+   </p>
+
+   <p>
+      <label>Stock</label>
+      <input type="number" name="stock">
+   </p>
+
+   <button>
+      Save Product
+   </button>
+
+   </form>
+</body>
+</html>

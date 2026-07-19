@@ -72,7 +72,7 @@
 
 
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
 
 def product_list(request):
@@ -103,3 +103,31 @@ def product_detail(request, id):
       },
    )
 
+
+
+def product_create(request):
+
+   if request.method == "POST":
+
+      name = request.POST["name"]
+
+      price = request.POST["price"]
+
+      stock = request.POST["stock"]
+
+      Product.objects.create(
+         name=name,
+         price=price,
+         stock=stock,
+      )
+
+      return redirect(
+         "products:product_list"
+      )
+
+   return render(
+      request,
+
+      "products/product_create.html",
+      
+   )

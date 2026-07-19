@@ -10,5 +10,6 @@ urlpatterns = [
     # path("about/", views.about),
     # path("contact/", views.contact),
     path("<int:id>/", views.product_detail, name="product_detail"),
-    
+    path("create/", views.product_create, name="product_create"),
+
 ]
