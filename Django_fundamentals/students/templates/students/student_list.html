@@ -10,7 +10,11 @@
 
    {% for student in students %}
 
-      <h2>Name: {{ student.name }}</h2>
+      <h2>Name: 
+         <a href="{% url 'students:student_detail' student.id %}">  
+         {{ student.name }}
+         </a>
+       </h2>
 
       <p>Email: {{ student.email }}</p>
 

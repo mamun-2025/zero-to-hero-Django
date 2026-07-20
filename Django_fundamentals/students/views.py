@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Student
 
 def student_list(request):
@@ -14,3 +14,17 @@ def student_list(request):
    )
 
 
+def student_detail(request, pk):
+
+   student = get_object_or_404(
+      Student,
+      pk=pk
+   )
+
+   return render(
+      request,
+      "students/student_detail.html",
+      {
+         "student": student,
+      },
+   )

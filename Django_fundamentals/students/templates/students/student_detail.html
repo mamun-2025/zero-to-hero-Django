@@ -1,0 +1,30 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Student Detail</title>
+</head>
+<body>
+   <h1>Student Detail</h1>
+
+   <p>Name: {{ student.name }}</p>
+
+   <p>Email: {{ student.email }}</p>
+
+   <p>Age: {{ student.age }}</p>
+
+   <p>Created At: {{student.created_at }}</p>
+
+   <p>Updated At: {{ student.updated_at }}</p>
+
+   <hr>
+
+   <p>
+      <a href="{% url 'students:student_list' %}">
+         Back to Students
+      </a>
+   </p>
+   
+</body>
+</html>
