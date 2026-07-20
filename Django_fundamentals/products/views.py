@@ -131,3 +131,35 @@ def product_create(request):
       "products/product_create.html",
       
    )
+
+
+
+def product_update(request, id):
+
+   product = get_object_or_404(
+      Product,
+      id=id
+   )
+
+   if request.method == "POST":
+
+      product.name = request.POST["name"]
+
+      product.price = request.POST["price"]
+
+      product.stock = request.POST["stock"]
+
+      product.save()
+
+      return redirect(
+         "products:product_detail",
+         product.id
+      )
+
+   return render(
+      request,
+      "products/product_update.html",
+      {
+         "product": product,
+      },
+   )
