@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Student
 
 def student_list(request):
@@ -28,3 +28,25 @@ def student_detail(request, pk):
          "student": student,
       },
    )
+
+
+
+def student_create(request):
+
+   if request.method == "POST":
+
+      Student.objects.create(
+         name=request.POST["name"],
+         email=request.POST["email"],
+         age=request.POST["age"],
+      )
+     
+      return redirect(
+         "students:student_list"
+      )
+
+   return render(
+      request,
+      "students/student_create.html",
+   )
+
