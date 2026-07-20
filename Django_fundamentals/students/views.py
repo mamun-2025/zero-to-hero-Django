@@ -50,3 +50,31 @@ def student_create(request):
       "students/student_form.html",
    )
 
+
+
+def student_update(request, pk):
+
+   student = get_object_or_404(
+      Student,
+      pk=pk
+   )
+
+   if request.method == "POST":
+
+      student.name = request.POST["name"]
+      student.email = request.POST["email"]
+      student.age = request.POST["age"]
+
+      student.save()
+
+      return redirect(
+         "students:student_list"
+      )
+
+   return render(
+      request,
+      "students/student_update.html",
+      {
+         "student": student
+      }
+   )
