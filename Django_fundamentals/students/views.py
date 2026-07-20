@@ -47,6 +47,6 @@ def student_create(request):
 
    return render(
       request,
-      "students/student_create.html",
+      "students/student_form.html",
    )
 

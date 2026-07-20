@@ -8,13 +8,19 @@
 <body>
    <h1>Students</h1>
 
+   <h2>
+      <a href="{% url 'students:student_create' %}">
+         Add Student
+      </a>
+   </h2> 
+
    {% for student in students %}
 
       <h2>Name: 
          <a href="{% url 'students:student_detail' student.id %}">  
          {{ student.name }}
          </a>
-       </h2>
+      </h2>
 
       <p>Email: {{ student.email }}</p>
 
