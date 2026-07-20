@@ -78,3 +78,28 @@ def student_update(request, pk):
          "student": student
       }
    )
+
+
+
+def student_delete(request, pk):
+
+   student = get_object_or_404(
+      Student,
+      pk=pk
+   )
+   
+   if request.method == "POST":
+
+      student.delete()
+
+      return redirect(
+         "students:student_list"
+      )
+
+   return render(
+      request,
+      "students/student_delete.html",
+      {
+         "student": student,
+      },
+   )
