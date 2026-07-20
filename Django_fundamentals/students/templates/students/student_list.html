@@ -1,0 +1,28 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Students</title>
+</head>
+<body>
+   <h1>Students</h1>
+
+   {% for student in students %}
+
+      <h2>Name: {{ student.name }}</h2>
+
+      <p>Email: {{ student.email }}</p>
+
+      <p>Age: {{ student.age }}</p>
+
+      <hr>
+
+   {% empty %}
+
+      <p>No students found.</p>
+
+   {% endfor %}
+   
+</body>
+</html>

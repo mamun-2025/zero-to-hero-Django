@@ -23,9 +23,9 @@ class StudentAdmin(admin.ModelAdmin):
    )
 
    ordering = (
-      "name",
+      # "name",
       # "-name",
-      # "age",
+      "age",
       # "-age",
    )
 
