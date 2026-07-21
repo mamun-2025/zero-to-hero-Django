@@ -1,0 +1,29 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Author Form</title>
+</head>
+<body>
+   <h1>Author Form</h1>
+
+   <form method = "POST">
+      
+      {% csrf_token %}
+
+      {{ form.as_p }}
+
+      <button type="submit">
+         Save
+      </button>
+
+   </form>
+
+   <p>
+      <a href="{% url 'library:author_list' %}">
+         Back
+      </a>
+   </p>
+</body>
+</html>

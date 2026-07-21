@@ -103,3 +103,6 @@ def student_delete(request, pk):
          "student": student,
       },
    )
+
+
+
