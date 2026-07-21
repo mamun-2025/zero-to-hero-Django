@@ -1,0 +1,25 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title>{{ author.name }}</title>
+</head>
+<body>
+   
+   <h1>Name: {{ author.name }}</h1>
+
+   <p><strong>Bio:</strong> {{ author.bio }}</p>
+
+   <p><strong>Created:</strong> {{ author.created_at }}</p>
+
+   <p><strong>Updated:</strong> {{ author.updated_at }}</p>
+
+   <p>
+      <a href="{% url 'library:author_list' %}">
+         Back to Author List 
+      </a>
+   </p>
+   
+</body>
+</html>
