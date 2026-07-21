@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     # Local app
     'products',
     'students',
+    'library',
 ]
 
 MIDDLEWARE = [
