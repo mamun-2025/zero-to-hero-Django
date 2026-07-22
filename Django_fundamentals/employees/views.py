@@ -1,26 +1,51 @@
+# from django.shortcuts import render
+# from .forms import EmployeeForm
+
+
+# def employee_form(request):
+
+#    if request.method == "POST":
+
+#       form = EmployeeForm(request.POST)
+
+#       if form.is_valid():
+         
+#          print(form.cleaned_data)
+
+#    else:
+#       form = EmployeeForm()
+
+#    return render(
+#       request,
+#       "employees/form.html",
+#       {
+#          "form":form,
+#       },
+#    )
+
+
 from django.shortcuts import render
-from .forms import EmployeeForm
+from .forms import EmployeeModelForm
 
-
-def employee_form(request):
+def employee_create(request):
 
    if request.method == "POST":
 
-      form = EmployeeForm(request.POST)
+      form = EmployeeModelForm(request.POST)
 
       if form.is_valid():
-         
-         print(form.cleaned_data)
+
+         form.save()
 
    else:
-      form = EmployeeForm()
+      
+      form = EmployeeModelForm()
+
 
    return render(
       request,
-      "employees/form.html",
+      "employees/employee_create.html",
       {
          "form":form,
       },
    )
-
-

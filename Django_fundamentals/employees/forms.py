@@ -1,22 +1,38 @@
 
 
-from django import forms
+# # Manual Form
+# from django import forms
 
-class EmployeeForm(forms.Form):
+# class EmployeeForm(forms.Form):
 
-   name = forms.forms.CharField(
-      max_length=100
-   )
+#    name = forms.CharField(
+#       max_length=100
+#    )
 
-   email = forms.EmailField()
+#    email = forms.EmailField()
 
-   salary = forms.DecimalField()
+#    salary = forms.DecimalField()
 
-   department = forms.CharField(
-      max_length=100
-   )
+#    department = forms.CharField(
+#       max_length=100
+#    )
 
-   joinin_date = forms.DateField
+#    joinin_date = forms.DateField
 
 
-   
+from django import forms 
+from .models import Employee
+
+class EmployeeModelForm(forms.ModelForm):
+
+   class Meta:
+      
+      model = Employee
+
+      fields = [
+         "name",
+         "email",
+         "salary",
+         "department",
+         "joining_date",
+      ]
