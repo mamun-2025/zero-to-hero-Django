@@ -31,8 +31,15 @@ class Book(models.Model):
    author = models.ForeignKey(
       Author,
       on_delete=models.CASCADE,
-
+      related_name="books",
    )
+   
+# | Forward        | Reverse                                                                                     |
+# | -------------- | ------------------------------------------------------------------------------------------- |
+# | `book.author`  | `author.book_set.all()` *(অথবা `author.books.all()` যদি `related_name="books"` দেওয়া হয়)* |
+# | Child → Parent | Parent → Children                                                                           |
+# | একটি Object    | একাধিক Object (`QuerySet`)                                                                  |
+
 
    created_at = models.DateTimeField(auto_now_add=True)
 
