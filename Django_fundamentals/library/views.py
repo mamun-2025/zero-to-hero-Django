@@ -6,7 +6,9 @@ from .forms import AuthorForm, BookForm
 # Author List
 def author_list(request):
 
-   authors = Author.objects.all()
+   authors = Author.objects.prefetch_related(
+      "books"
+   )
 
    return render(
       request,
@@ -131,7 +133,9 @@ def author_delete(request, pk):
 # Book List
 def book_list(request):
 
-   books = Book.objects.all()
+   books = Book.objects.select_related(
+      "author"
+   )
    
    return render(
       request,
