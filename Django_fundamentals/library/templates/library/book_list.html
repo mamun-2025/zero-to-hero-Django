@@ -1,0 +1,52 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Book List</title>
+</head>
+<body>
+   <h1>Book List</h1>
+
+   <p>
+      <a href="{% url 'library:book_create' %}">
+         +Add New Book
+   </p>
+
+   {% for book in books %}
+
+      <h2>title: 
+         <a href="{% url 'library:book_detail' book.pk %}">
+            {{ book.title }}
+         </a>
+      </h2>
+
+      <p><strong>{{ book.auhor.name}}</strong></p>
+
+      <p><strong>{{ book.price }}<strong></p>
+
+      <p><strong>{{ book.pubblishdd_date}}</p>
+
+      <a href="{% url 'library:book_detail' book.pk %}">
+         Book title
+      </a>
+
+      <a href="{% url 'library:book_update' book.pk %}">
+         Book Update
+      </a>
+
+      <a href="{% url 'library:book_delete' book.pk %}">
+         Delete
+      </a>
+
+   {% empty %}
+      <p>No books found.</p>
+
+   {% endfor %}
+
+   
+
+
+
+</body>
+</html>
