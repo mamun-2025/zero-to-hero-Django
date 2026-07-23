@@ -22,6 +22,7 @@
 
 from django import forms 
 from .models import Employee
+from django.core.exceptions import ValidationError
 
 class EmployeeModelForm(forms.ModelForm):
 
@@ -36,3 +37,33 @@ class EmployeeModelForm(forms.ModelForm):
          "department",
          "joining_date",
       ]
+
+   def clean_email(self):
+
+      email = self.cleaned_data["email"]
+
+      if Employee.objects.filter(email=email).exists():
+
+         raise ValidationError(
+            "This email already exists."
+         )
+
+      return email
+
+
+
+   def clean_salary(self):
+
+      salary = self.cleaned_data["salary"]
+
+      if salary <= 0:
+         raise ValidationError(
+            "Salary must be greater than zero."
+         )
+
+      if salary < 10000:
+         raise ValidationError(
+            "Minimum salary is 10000"
+         )
+
+      return salary
