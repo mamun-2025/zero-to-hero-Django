@@ -24,8 +24,42 @@
 #    )
 
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Employee
 from .forms import EmployeeModelForm
+
+
+
+def employee_list(request):
+
+   employees = Employee.objects.all()
+
+   return render(
+      request,
+      "employees/employee_list.html",
+      {
+         "employees": employees,
+      },
+   )
+
+
+def employee_detail(request, pk):
+
+   employee = get_object_or_404(
+      Employee,
+      pk=pk,
+   )
+
+   return render(
+      request,
+      "employees/employee_detail.html",
+      {
+         "employee": employee,
+      },
+
+   )
+
+
 
 def employee_create(request):
 
@@ -37,6 +71,10 @@ def employee_create(request):
 
          form.save()
 
+         return redirect(
+            "employees:employee_list"
+         )
+
    else:
       
       form = EmployeeModelForm()
@@ -44,8 +82,13 @@ def employee_create(request):
 
    return render(
       request,
-      "employees/employee_create.html",
+      "employees/employee_form.html",
       {
          "form":form,
       },
    )
+
+
+
+def employee_update(request, pk):
+   

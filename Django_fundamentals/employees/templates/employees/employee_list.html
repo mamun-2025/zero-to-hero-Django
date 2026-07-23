@@ -1,0 +1,38 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Employee List</title>
+</head>
+<body>
+   <h1>Employee List</h2>
+
+      <p>
+         <a href="{% url 'employees:employee_create' %}">
+            +Add New Employee
+         </a>
+      </p>
+
+      {% for employee in employees %}
+
+         <h2>Name:
+            <a href="{% url 'employees:employee_detail' employee.pk %}">
+             {{ employee.name }}
+            </a>
+         </h2>
+         <p><strong>Email: </strong>{{ employee.email}}</p>
+         <p><strong>Department: </strong>{{ employee.department }}</p>
+         <p><strong>Salary: </strong>{{ employee.salary }}</p>
+         <p><strong>Joining_Date: </strong>{{ employee.joining_date }}</p>
+
+
+      {% empty %}
+
+         <p>No Employees found.</p>
+
+      {% endfor %}
+
+
+</body>
+</html>

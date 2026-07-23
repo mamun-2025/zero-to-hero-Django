@@ -1,0 +1,31 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Employee Detail</title>
+</head>
+<body>
+   <h1>Employee Detail</h1>
+
+      <h2><strong>Name: </strong>
+         {{ employee.name }}
+      </h2>
+      <p>Email: {{ employee.email}}</p>
+      <p>Department: {{ employee.department }}</p>
+      <p>Salary: {{ employee.salary}}  
+      <p>Created At: {{ employee.created_at }}</p>
+      <p>Updated At: {{ employee.updated_at }}</p>
+
+      <p>
+         <a href="{% url 'employees:employee_list' %}">
+            Back to Employees 
+         </a>
+      </p>
+
+
+
+</body>
+</html>
