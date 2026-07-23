@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'students',
     'library',
     'employees',
-    
+    'blog',
 ]
 
 MIDDLEWARE = [
