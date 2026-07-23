@@ -28,13 +28,11 @@
 
       <p><strong>{{ book.pubblishdd_date}}</p>
 
-      <a href="{% url 'library:book_detail' book.pk %}">
-         Book title
+      <a href="{% url 'library:book_update' book.pk %}">
+         Update
       </a>
 
-      <a href="{% url 'library:book_update' book.pk %}">
-         Book Update
-      </a>
+      <br>
 
       <a href="{% url 'library:book_delete' book.pk %}">
          Delete

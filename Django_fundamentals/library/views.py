@@ -231,10 +231,11 @@ def book_delete(request, pk):
    )
 
    if request.method == "POST":
+
       book.delete()
 
       return redirect(
-         "library:book_list",
+         "library:book_list"
       )
    
    return render(

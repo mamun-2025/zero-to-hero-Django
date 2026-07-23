@@ -91,4 +91,61 @@ def employee_create(request):
 
 
 def employee_update(request, pk):
-   
+
+   employee = get_object_or_404(
+      Employee,
+      pk=pk,
+   )
+
+   if request.method == "POST":
+
+      form = EmployeeModelForm(
+         request.POST,
+         instance=employee
+      )
+
+      if form.is_valid():
+
+         form.save()
+
+         return redirect(
+            "employees:employee_list"
+         )
+
+   else:
+      form = EmployeeModelForm(
+         instance=employee,
+      )
+
+   return render(
+      request,
+      "employees/employee_form.html",
+      {
+         "form": form,
+      },
+   )
+
+
+
+def employee_delete(request, pk):
+
+   employee = get_object_or_404(
+      Employee,
+      pk=pk,
+   )
+
+   if request.method == "POST":
+
+      employee.delete()
+
+      return redirect(
+         "employees:employee_list"
+      )
+
+   return render(
+      request,
+      "employees/employee_confirm_delete.html",
+      {
+         "employee":employee,
+      },
+   )
