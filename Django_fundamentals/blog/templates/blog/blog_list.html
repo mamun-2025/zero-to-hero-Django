@@ -1,0 +1,25 @@
+
+
+{% extends "blog/base.html" %}
+
+{% block title %}
+Blog List 
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<h2>All Blogs</h2>
+
+<ul>
+   {% for blog in blogs %}
+      <li>{{ blog.title }}</li>
+   {% empty %}
+      <li>No blogs found.</li>
+   {% endfor %}
+</ul>
+
+{% endblock %}
+
