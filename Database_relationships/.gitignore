@@ -1,0 +1,8 @@
+
+
+.venv
+db.sqlite3
+__pychace__/
+*.py[ocd]
+.env
+password.txt
