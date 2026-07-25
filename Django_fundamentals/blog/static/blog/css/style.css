@@ -1,0 +1,16 @@
+
+
+body{
+   font-family: Arial, Helvetica, sans-serif;
+   background-color: rgb(255, 255, 255);
+   color: rgb(195, 255, 0);
+}
+
+h2{
+   color: brown;
+}
+
+p{
+   font-size: 18px;
+   color: teal;
+}

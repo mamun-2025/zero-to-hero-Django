@@ -1,5 +1,6 @@
 
 
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +9,12 @@
       My Blog Website
       {% endblock %}
    </title>
+   <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
 </head>
+
 <body>
+   <img src="{% static 'images/logo.png' %}"
+        alt="logo">
    
    {% include "blog/includes/navbar.html" %}
 
@@ -22,6 +27,10 @@
    <hr>
 
    {% include "blog/includes/footer.html" %}
+
+
+   <script src="{% static 'js/app.js' %}">
+   </script>
 
 </body>
 </html>
