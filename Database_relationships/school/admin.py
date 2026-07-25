@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Teacher, Course
+from .models import Teacher, Course, Student
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
@@ -8,6 +8,7 @@ class TeacherAdmin(admin.ModelAdmin):
       "id",
       "name",
       "email",
+      'department',
    )
 
    search_fields = (
@@ -15,9 +16,15 @@ class TeacherAdmin(admin.ModelAdmin):
       "email",
    )
 
+   list_filter = (
+      "department",
+   )
+
    ordering = (
       "name",
    )
+
+   list_per_page = 20
 
 
 @admin.register(Course)
@@ -25,7 +32,8 @@ class CourseAdmin(admin.ModelAdmin):
    list_display = (
       "id",
       "name",
-      "created_at",
+      "code",
+      "teacher"
    )
 
    search_fields = (
@@ -38,13 +46,36 @@ class CourseAdmin(admin.ModelAdmin):
    )
 
    list_filter = (
-      "name",
+      "teacher",
    )
 
-   list_per_page = 10
+   list_per_page = 20
 
    readonly_fields = (
       "created_at",
       "updated_at",
    )
 
+
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+   list_display = (
+      "id",
+      "name",
+      "email",
+   )
+
+   list_filter = (
+      "name",
+   )
+
+   search_fields = (
+      "name",
+      "email",
+   )
+
+   filter_horizontal = (
+      "courses",
+   )
+
+  
