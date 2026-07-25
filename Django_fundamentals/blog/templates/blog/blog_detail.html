@@ -1,0 +1,28 @@
+
+
+
+{% extends "blog/base.html" %}
+
+{% block title %}
+   {{ blog.title }}
+{% endblock %}
+
+
+{% block content %}
+
+   <h2>{{ blog.title }}</h2>
+
+   <p>
+      {{ blog.content }}
+   </p>
+
+   <p>
+   Created:
+   {{ blog.created_at }}
+   </p>
+
+   <a href="{% url 'blog:blog_list' %}">
+      Back to Blogs
+   </a>
+
+{% endblock %}

@@ -7,19 +7,27 @@ Blog List
 {% endblock %}
 
 
-
-
 {% block content %}
 
-<h2>All Blogs</h2>
+   <h2>All Blogs</h2>
 
-<ul>
    {% for blog in blogs %}
-      <li>{{ blog.title }}</li>
+
+   <h3>
+      <a href="{% url 'blog:blog_detail' blog.pk %}">
+      {{ blog.title }}
+      </a>
+   </h3>
+
+   {% comment %} <p>{{ blog.content }}</p> {% endcomment %}
+
+   <hr>
+
    {% empty %}
-      <li>No blogs found.</li>
+
+   <p>No blogs avaiable.</p>
+
    {% endfor %}
-</ul>
 
 {% endblock %}
 
