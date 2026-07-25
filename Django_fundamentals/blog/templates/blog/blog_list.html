@@ -15,11 +15,16 @@ Blog List
 
    <h3>
       <a href="{% url 'blog:blog_detail' blog.pk %}">
-      {{ blog.title }}
+      {{ blog.title|title }}
       </a>
    </h3>
 
-   {% comment %} <p>{{ blog.content }}</p> {% endcomment %}
+   <p>{{ blog.content|truncatechars:60 }}</p>
+
+   <p>
+      Published:
+      {{ blog.created_at|date:"d M Y" }}
+   </p>
 
    <hr>
 
