@@ -9,21 +9,21 @@
    <p>
       Doctor: {{ appointment.doctor.name }}
 
-      |
+      <hr>
 
       Patient: {{ appointment.patient.name }}
 
-      |
+      <hr>
 
       Appointment Date: {{ appointment.appointment_date }}
 
-      |
+      <hr>
 
       Status: {{ appointment.status }}
 
    </p>
 
-   |
+   <hr>
 
    <p>
       <a href="{% url 'hospital:appointment_list' %}">

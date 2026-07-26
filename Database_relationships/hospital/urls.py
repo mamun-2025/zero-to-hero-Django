@@ -19,9 +19,9 @@ urlpatterns = [
    path("patient/<int:pk>/delete", views.patient_delete, name="patient_delete"),
 
    
-   path("appointment/", views.appointment_list, name="appointment_list.html"),
+   path("appointment/", views.appointment_list, name="appointment_list"),
    path("appointment/<int:pk>/", views.appointment_detail, name="appointment_detail"),
-   path("appointment/create/", views.appointment_create, name="appointemnt_create"),
+   path("appointment/create/", views.appointment_create, name="appointment_create"),
    path("appointment/<int:pk>/update", views.appointment_update, name="appointment_update"),
    path("appointment/<int:pk>/delete", views.appointment_delete, name="appointment_delete"),
     
