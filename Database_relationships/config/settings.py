@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # local app
     'school',
+    'hospital',
     
 ]
 
