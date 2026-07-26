@@ -1,0 +1,21 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Appointment_list</title>
+</head>
+<body>
+   <h1>Appointment_list</h1>
+
+   {% for appointment in appointments %}
+   
+      Doctor: {{ appointment.doctor.name }}
+      Patient:{{ appointment.patient.name }}
+      Status: {{ appointment.status }}
+
+      <hr>
+
+   {% endfor %}
+</body>
+</html>
