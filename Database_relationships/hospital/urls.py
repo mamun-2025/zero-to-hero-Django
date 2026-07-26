@@ -13,6 +13,6 @@ urlpatterns = [
    path("doctors/<int:pk>/delete/", views.doctor_delete, name="doctor_delete"),
 
    
-   path("", views.appointment_list, name="appointment_list.html"),
+   # path("", views.appointment_list, name="appointment_list.html"),
     
 ]

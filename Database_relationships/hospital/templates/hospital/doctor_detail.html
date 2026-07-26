@@ -1,0 +1,22 @@
+
+
+{% extends "hospital/base.html" %}
+
+{% block title %}
+   Doctor Details
+{% endblock %}
+
+{% block content %}
+
+   <h1>{{ doctor.name }}</h1>
+
+   <p>
+      Specialization: {{ doctor.specialization }}
+   </p>
+
+   <a href="{% url 'hospital:doctor_list' %}">
+      Back to Doctor List 
+   </a>
+   
+
+{% endblock %}

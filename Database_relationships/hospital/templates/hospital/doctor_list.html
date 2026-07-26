@@ -1,0 +1,50 @@
+
+
+{% extends "hospital/base.html" %}
+
+{% block title %}
+   Doctor List 
+{% endblock %}
+
+
+{% block content %}
+<h1>Doctor List</h1>
+
+   <a href="{% url 'hospital:doctor_create' %}">
+      Doctor Create
+   </a>
+
+   <hr>
+
+   {% for doctor in doctors %}
+
+      <p>
+         <strong>Doctor:</strong> {{ doctor.name }}
+         <br>
+         <strong>Specialization:</strong> {{ doctor.specialization }}
+      </p>
+
+      <a href="{% url 'hospital:doctor_detail' doctor.pk %}">
+         View
+      </a>
+
+      |
+
+      <a href="{% url 'hospital:doctor_update' doctor.pk %}">
+         Edit
+      </a>
+
+      |
+
+      <a href="{% url 'hospital:doctor_delete' doctor.pk %}">
+         Delete
+      </a>
+
+   {% empty %}
+
+      <p>No Doctors Found</p>
+   
+   {% endfor %}  
+
+{% endblock %}
+
