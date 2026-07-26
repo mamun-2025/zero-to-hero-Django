@@ -1,0 +1,28 @@
+
+
+
+{% extends "hospital/base.html" %}
+
+{% block content %}
+
+   <h1>Appointment Form</h1>
+
+   <form method="POST">
+
+      {% csrf_token %}
+
+      {{ form.as_p }}
+
+      <button type="submit">
+         Save
+      </button>
+
+   </form>
+
+   <p>
+      <a href="{% url 'hospital:appointment_list' %}">
+         Back to Appointment List 
+      </a>
+   </p>
+
+{% endblock %}

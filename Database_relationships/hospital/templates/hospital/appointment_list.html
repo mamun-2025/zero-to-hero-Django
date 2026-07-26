@@ -1,21 +1,63 @@
 
 
-<!DOCTYPE html>
-<html>
-<head>
-   <title>Appointment_list</title>
-</head>
-<body>
+
+{% extends "hospital/base.html" %}
+
+{% block content %}
+
    <h1>Appointment_list</h1>
 
-   {% for appointment in appointments %}
-   
-      Doctor: {{ appointment.doctor.name }}
-      Patient:{{ appointment.patient.name }}
-      Status: {{ appointment.status }}
+   <a href="{% url 'hospital:appointment_create' %}">
+      Add Appointment
+   </a>
 
-      <hr>
+   <hr>
 
-   {% endfor %}
-</body>
-</html>
+   <table border="1">
+      <tr>
+         <th>Doctor</th>
+         <th>Patient</th>
+         <th>Date</th>
+         <th>Status</th>
+         <th>Action</th>
+      </tr>
+
+      {% for appointment in appointments %}
+
+      <tr>
+         <td>{{ appointemnt.doctor.name }}</td>
+         <td>{{ appointemnt.patient.name }}</td>
+         <td>{{ appointemnt.appointment_date }}</td>
+         <td>{{ appointment.status }}</td>
+
+         <td>
+            <a href="{% url 'hospital:appointment_detail' appointment.pk %}">
+               View 
+            </a>
+
+            |
+
+            <a href="{% url 'hospital:appointment_update' appointment.pk %}">
+               Edit
+            </a>
+
+            |
+
+            <a href="{% url 'hospital:appointment_delete' appointment.pk %}">
+               Delete  
+            </a>
+         </td>
+      </tr>
+
+      {% empty %}
+
+      <tr>
+         <td colspan="5">
+            No Appointment Found.
+         </td>
+      </tr>
+
+      {% endfor %}
+   </table>
+
+{% endblock %}

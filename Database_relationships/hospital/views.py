@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import  Doctor, Patient
-from .forms import DoctorForm, PatientForm
+from .models import  Doctor, Patient, Appointment
+from .forms import DoctorForm, PatientForm, AppointmentForm
 
 
 
@@ -255,24 +255,7 @@ def patient_delete(request, pk):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Appointment
 def appointment_list(request):
 
    appointments = Appointment.objects.select_related(
@@ -285,5 +268,118 @@ def appointment_list(request):
       "hospital/appointment_list.html",
       {
          "appointments": appointments,
+      },
+   )
+
+
+
+def appointment_detail(request, pk):
+
+   appointment = get_object_or_404(
+      Appointment.objects.select_related(
+         "doctor",
+         "patient",
+      ),
+      pk=pk,
+   )
+
+   return render(
+      request,
+      "hospital/appointment_detail.html",
+      {
+         "appointment": appointment,
+      },
+   )
+
+
+
+def appointment_create(request):
+
+   if request.method == "POST":
+
+      form = AppointmentForm(
+         request.POST
+      )
+
+      if form.is_valid():
+
+         form.save()
+
+         return redirect(
+            "hospital:appointment_list"
+         )
+
+   else:
+
+      form = AppointmentForm()
+
+   return render(
+      request,
+      "hospital/appointment_form.html",
+      {
+         "form": form,
+      },
+   )
+
+
+
+def appointment_update(request, pk):
+
+   appointment = get_object_or_404(
+      Appointment,
+      pk=pk,
+   )
+
+   if request.method == "POST":
+
+      form = AppointmentForm(
+         request.POST,
+         instance=appointment,
+      )
+
+      if form.is_valid():
+
+         form.save()
+
+         return redirect(
+            "hospital:appointment_list"
+         )
+
+   else:
+
+      form = AppointmentForm(
+         instance=appointment,
+      )
+
+   return render(
+      request,
+      "hospital/appointment_form.html",
+      {
+         "form": form,
+      },
+   )
+
+
+
+def appointment_delete(request, pk):
+
+   appointment = get_object_or_404(
+      Appointment,
+      pk=pk,
+   )
+
+   if request.method == "POST":
+
+      appointment.delete()
+
+      return redirect(
+         "hospital:appointment_list"
+      )
+
+   return render(
+      request,
+      "hospital/appointment_confirm_delete.html",
+      {
+         "appointment": appointment,
       },
    )

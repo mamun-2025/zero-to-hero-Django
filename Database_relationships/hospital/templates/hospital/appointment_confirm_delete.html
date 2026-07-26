@@ -1,0 +1,31 @@
+
+
+
+{% extends "hospital/base.html" %}
+
+{% block content %}
+
+<h2>Are you sure you want to delete Appointment ?</h2>
+
+   <p>Doctor: {{ appointment.doctor.name }}</p>
+   <p>Patient: {{ appointment.patient.name }}</p>
+
+   <form method="POST">
+
+      {% csrf_token %}
+
+      <button type="submit">
+         Yes, Delete 
+      </button>
+
+   </form>
+
+   <p>
+      <a href="{% url 'hospital:appointment_list' %}">
+         Cancel
+      </a>
+   </p>
+
+{% endblock %}
+
+

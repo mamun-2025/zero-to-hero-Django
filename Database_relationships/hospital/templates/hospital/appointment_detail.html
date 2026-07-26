@@ -1,0 +1,34 @@
+
+
+{% extends "hospital/base.html" %}
+
+{% block content %}
+
+   <h1>Appointment Details</h1>
+
+   <p>
+      Doctor: {{ appointment.doctor.name }}
+
+      |
+
+      Patient: {{ appointment.patient.name }}
+
+      |
+
+      Appointment Date: {{ appointment.appointment_date }}
+
+      |
+
+      Status: {{ appointment.status }}
+
+   </p>
+
+   |
+
+   <p>
+      <a href="{% url 'hospital:appointment_list' %}">
+         Back to Appointment List 
+      </a>
+   </p>
+
+{% endblock %}
