@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import  Doctor
-from .forms import DoctorForm
+from .models import  Doctor, Patient
+from .forms import DoctorForm, PatientForm
 
 
+
+# Doctor
 def doctor_list(request):
 
    doctors = Doctor.objects.all()
@@ -125,13 +127,129 @@ def doctor_delete(request, pk):
 
 
 
+# Patient
+def patient_list(request):
+
+   patients = Patient.objects.all()
+
+   return render(
+      request,
+      "hospital/patient_list.html",
+      {
+         "patients": patients,
+      },
+   )
 
 
 
 
+def patient_detail(request, pk):
+
+   patient = get_object_or_404(
+      Patient,
+      pk=pk,
+   )
+
+   return render(
+      request,
+      "hospital/patient_detail.html",
+      {
+         "patient": patient,
+      },
+   )
 
 
 
+def patient_create(request):
+
+   if request.method == "POST":
+
+      form = PatientForm(
+         request.POST
+      )
+
+      if form.is_valid():
+
+         form.save()
+
+         return redirect(
+            "hospital:patient_list"
+         )
+
+   else:
+
+      form = PatientForm()
+
+   return render(
+      request,
+      "hospital/patient_form.html",
+      {
+         "form": form,
+      },
+   )
+
+
+
+def patient_update(request, pk):
+
+   patient = get_object_or_404(
+      Patient,
+      pk=pk,
+   )
+
+   if request.method == "POST":
+
+      form = PatientForm(
+         request.POST,
+         instance=patient
+      )
+
+      if form.is_valid():
+
+         form.save()
+
+         return redirect(
+            "hospital:patient_list"
+         )
+
+   else:
+
+      form = PatientForm(
+         instance=patient,
+      )
+
+   return render(
+      request,
+      "hospital/patient_form.html",
+      {
+         "form": form,
+      },
+   )
+
+
+
+def patient_delete(request, pk):
+
+   patient = get_object_or_404(
+      Patient,
+      pk=pk,
+   )
+
+   if request.method == "POST":
+
+      patient.delete()
+
+      return redirect(
+         "hospital:patient_list"
+      )
+
+   return render(
+      request,
+      "hospital/patient_confirm_delete.html",
+      {
+         "patient": patient,
+      },
+   )
 
 
 

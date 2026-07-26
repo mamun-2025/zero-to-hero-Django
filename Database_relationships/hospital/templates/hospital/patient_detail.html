@@ -1,0 +1,18 @@
+
+
+{% extends "hospital/base.html" %}
+{% block content %}
+
+<h2>Patient Detail</h2>
+
+<p>
+   Name: {{ patient.name }}
+
+   Name: {{ patient.phone }}
+</p>
+
+ <a href="{% url 'hospital:patient_list %}">
+      Back to Patient List 
+</a>
+
+{% endblock %}

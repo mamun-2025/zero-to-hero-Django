@@ -1,0 +1,49 @@
+
+
+{% extends "hospital/base.html" %}
+
+{% block content %}
+   
+<h2>Patient List </h2>
+
+<a href="{% url 'hospital:patient_create' %}">
+   Patient Create
+</a>
+
+<hr>
+
+{% for patient in patients %}
+   <p>
+   {{ patient.name }}
+
+   |
+   {{ patient.phone }}
+
+   </p>
+
+   | 
+
+   <a href="{% url 'hospital:patient_detail' patient.pk %}">
+      View
+   </a>
+
+   |
+
+    <a href="{% url 'hospital:patient_update' patient.pk %}">
+      Edit
+   </a>
+
+   |
+
+   <a href="{% url 'hospital:patient_delete' patient.pk %}">
+      Delete
+   </a>
+   
+{% empty %}
+
+   <p>No Patients Found</p>
+
+{% endfor %}
+
+{% endblock %}
+
