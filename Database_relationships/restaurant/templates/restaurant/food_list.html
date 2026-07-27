@@ -1,0 +1,58 @@
+
+
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+<h1>Food List</h1>
+
+<a href="{% url 'restaurant:food_create' %}">
+   Add Food 
+</a>
+
+<hr>
+
+<table border="1">
+   
+   <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th>Available</th>
+      <th>Action</th>
+   </tr>
+
+   {% for food in foods %}
+   <tr>
+      <td>{{ food.name }}</td>
+      <td>{{ food.category.name }}</td>
+      <td>{{ food.price }}</td>
+      <td>{{ food.available }}</td>
+
+      <td>
+         <a href="{% url 'restaurant:food_detail' food.pk %}">
+            View 
+         </a>
+
+          <a href="{% url 'restaurant:food_update' food.pk %}">
+            Edit
+         </a>
+
+          <a href="{% url 'restaurant:food_delete' food.pk %}">
+            Delete
+         </a>
+      </td>
+   </tr>
+
+   {% empty %}
+
+   <tr>
+      <td colspan="5">
+         No foods found
+      </td>
+   </tr>
+
+   {% endfor %}
+
+</table>
+
+{% endblock %}

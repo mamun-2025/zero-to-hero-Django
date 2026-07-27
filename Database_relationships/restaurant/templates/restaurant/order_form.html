@@ -1,0 +1,27 @@
+
+
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+
+<h1> Order Form</h1>
+
+<form method="POST">
+
+   {% csrf_token %}
+
+   {{ form.as_p }}
+
+   <button type="submit">
+      Save
+   </button>
+
+</form>
+
+<p>
+   <a href="{% url 'restaurant:order_list' %}">
+      Back to Order List 
+   </a>
+</p>
+
+{% endblock %}

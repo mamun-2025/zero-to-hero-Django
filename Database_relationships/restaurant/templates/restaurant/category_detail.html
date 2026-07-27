@@ -1,0 +1,17 @@
+
+
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+
+<h1>Category Details</h1>
+
+<p>Id: {{ category.id }}</p>
+<p>Nmae: {{ category.name }}</p>
+<p>Created: {{ category.created_at }}</p>
+
+<a herf="{% url 'restaurant:category_list' %}">
+   Back to Category List 
+</a>
+
+{% endblock %}

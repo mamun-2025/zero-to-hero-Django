@@ -1,0 +1,20 @@
+
+
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+
+<h1>Food Details</h1>
+
+   <p> Category: {{ food.category.name }}</p>
+   <p> Description: {{ food.description }}</p>
+   <p> Price: {{ food.price }}</p>
+   <p> Available {{ food.available }}</p>
+
+   <p>
+      <a href="{% url 'restaurant:food_list' %}">
+               Back to Food List  
+      </a>
+   </p>
+
+{% endblock %}

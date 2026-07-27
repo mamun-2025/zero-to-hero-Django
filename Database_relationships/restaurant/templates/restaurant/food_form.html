@@ -1,0 +1,27 @@
+
+
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+
+<h1>Food Form</h1>
+
+<form method="POST">
+
+   {% csrf_token %}
+
+   {{ form.as_p }}
+
+   <button type="submit">
+      Save
+   </button>
+
+</form>
+
+<p>
+   <a href="{% url 'restaurant:category_list' %}">
+      Back to Food List 
+   </a>
+</p>
+
+{% endblock %}

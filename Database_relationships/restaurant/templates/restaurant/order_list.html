@@ -1,0 +1,67 @@
+
+
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+
+<h1>Order List</h1>
+<p>
+   <a href="{% url 'restaurant:order_create' %}">
+      Add Order 
+   </a>
+</p>
+
+<hr>
+
+<table border="1">
+
+<tr>
+   <th>ID</th>
+   <th>Customer_name</th>
+   <th>Foods</th>
+   <th>Status</th>
+   <th>Action</th>
+</tr>
+
+{% for order in orders %}
+   <tr>
+      <td>{{ order.id }}</td>
+      <td>{{ order.customer_name }}</td>
+      <td>
+         {% for food in order.foods.all %}
+
+         {{ food.name }}</br>
+
+         {% empty %}
+
+          No Food 
+
+         {% endfor %}
+      </td>
+      <td>{{ order.status }}</td>
+      
+
+      <td>
+         <a href="{% url 'restaurant:order_detail' order.pk %}">
+            View
+         </a>
+
+         |
+
+         <a href="{% url 'restaurant:order_update' order.pk %}">
+            Edit
+         </a>
+
+         |
+
+         <a href="{% url 'restaurant:order_delete' order.pk %}">
+            Delete
+         </a>
+      </td>
+   </tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+
+
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+
+   <h1> Order #{{ order.id }}</h1>
+
+   <p>Customer_name: {{ order.custormer_name }}</p>
+   <p>Status: {{ order.status }}</p>
+
+   <h3>Food</h3>
+   <ul>
+      {% for food in order.foods.all %}
+
+      <li>
+         {{ food.name }}
+         - ${{ food.price }}
+      </li>
+
+      {% endfor %}
+   </ul>
+   <hr>
+   <p>
+      <a href="{% url 'restaurant:order_list' %}">
+         Back to Order List
+   </p>
+
+{% endblock %}

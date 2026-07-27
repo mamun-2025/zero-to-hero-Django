@@ -1,0 +1,59 @@
+
+
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+
+<h1>Category List</h1>
+
+<p>
+   <a href="{% url 'restaurant:category_create' %}">
+      Add Category
+   </a>
+</p>
+
+<hr>
+
+<table border="1">
+
+   <tr>
+      <th>ID</td>
+      <th>Name</td>
+      <th>Action</td>
+   </tr>
+
+   {% for category in categories %}
+
+   <tr>
+      <td>{{ category.id }}</td>
+      <td>{{ category.name }}</td>
+
+      <td>
+         <a herf="{% url 'restaurant:category_detail' category.pk %}">
+            View
+         </a>
+
+         <a herf="{% url 'restaurant:category_update' category.pk %}">
+            Edit
+         </a>
+
+         <a herf="{% url 'restaurant:category_delete' category.pk %}">
+            Delete
+         </a>
+      </td>
+
+   </tr>
+
+   {% empty %}
+
+   <tr>
+      <td colspan="3">
+         No Category Found
+      </td>
+   </tr>
+
+   {% endfor %}
+
+</table>
+
+{% endblock %}

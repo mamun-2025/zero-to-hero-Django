@@ -1,0 +1,28 @@
+
+
+{% extends "reataurant/base.html" %}
+
+{% block content %}
+<h1>Are you sure you want to delete 
+   {{ category.name }}?
+</h1>
+
+<form method="POST">
+
+   {% csrf_token %}
+
+   <button type="submit">
+
+      Yes, Delete
+   
+   </button>
+
+</form>
+
+<p>
+   <a href="{% url 'restaurant:category_list' %}">
+      Cancel
+   </a>
+</p>
+
+{% endblock %}
