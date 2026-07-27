@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     # local app
     'school',
     'hospital',
+    'restaurant',
+    
     
 ]
 
