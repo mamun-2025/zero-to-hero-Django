@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
       "is_active",
    )
 
-   fieldsets = UserAdmin.fieldsets = (
+   fieldsets = UserAdmin.fieldsets + (
        (
           "Additional Information", 
           {
@@ -31,9 +31,27 @@ class CustomUserAdmin(UserAdmin):
                "phone",
                "address",
                "date_of_birth",
+               "profile_picture",
            ),
          },
       ),
    )
+
+   add_fieldsets = UserAdmin.add_fieldsets + (
+      (
+         "Additional Information",
+         {
+            "fields": (
+               "email",
+               "phone",
+               "address",
+               "date_of_birth",
+               "profile_picture",
+            ),
+         },
+      ),
+   )
+
+   
    
    
