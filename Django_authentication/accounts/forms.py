@@ -73,3 +73,19 @@ class RegisterForm(UserCreationForm):
       self.fields["password1"].widget.attrs["placeholder"] = "Password"
 
       self.fields["password2"].widget.attrs["placeholder"] = "Confirm Password"
+
+
+
+class ProfileUpdateForm(forms.ModelForm):
+
+   class Meta:
+      model = User 
+      fields = (
+         "first_name",
+         "last_name",
+         "email",
+         "phone",
+         "date_of_birth",
+         "address",
+         "profile_picture",
+      )

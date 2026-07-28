@@ -3,6 +3,7 @@ from .forms import RegisterForm
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from .forms import ProfileUpdateForm
 
 
 def register(request):
@@ -103,4 +104,47 @@ def dashboard(request):
    return render(
       request,
       "accounts/dashboard.html",
+   )
+
+
+@login_required
+def profile(request):
+
+   return render(
+      request,
+      "accounts/profile.html",
+   )
+
+
+@login_required
+def profile_update(request):
+
+   form = ProfileUpdateForm(
+      request.POST or None,
+      request.FILES or None,
+      instance=request.user,
+   )
+
+   if request.method == "POST":
+
+      if form.is_valid():
+
+         form.save()
+
+         return redirect("profile")
+
+   return render(
+      request,
+      "accounts/profile_update.html",
+      {
+         "form": form,
+      },
+   )
+
+
+def home(request):
+
+   return render(
+      request, 
+      "accounts/home.html",
    )
