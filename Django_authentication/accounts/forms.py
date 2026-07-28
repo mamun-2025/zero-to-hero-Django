@@ -8,7 +8,14 @@ class RegisterForm(UserCreationForm):
 
    class Meta:
       model = User 
-      fields = "__all__"
+      fields = (
+         "username",
+         "email",
+         "phone",
+         "profile_picture",
+         "date_of_birth",
+         "address",
+      )
 
       widgets = {
          "username": forms.TextInput(
@@ -28,41 +35,41 @@ class RegisterForm(UserCreationForm):
          ),
       }
 
-      def clean_email(self):
+   def clean_email(self):
 
-         email = self.cleaned_data["email"]
+      email = self.cleaned_data["email"]
 
-         if User.objects.filter(email=email).exists():
+      if User.objects.filter(email=email).exists():
 
-            raise forms.ValidationError(
-               "This email is already registered."
-            )
+         raise forms.ValidationError(
+            "This email is already registered."
+         )
 
-         return email
-
-
-      def clean_phone(self):
-
-         phone = self.cleaned_data("phone")
-
-         if len(phone) != 11:
-
-            raise forms.ValidationError(
-               "Phone number must be 11 digits."
-            )
-
-         return phone
+      return email
 
 
-      # Password Hashing
-      def __init__(self, *args, **kwargs):
+   def clean_phone(self):
 
-         super().__init__(*args, **kwargs)
+      phone = self.cleaned_data["phone"]
 
-         for field in self.fields.values():
+      if len(phone) != 11:
 
-            field.widget.attrs["class"] = "form-control"
+         raise forms.ValidationError(
+            "Phone number must be 11 digits."
+         )
 
-         self.fields["password"].widget.attrs["placeholder"] = "Password"
+      return phone
 
-         self.fields["password2"].widget.attrs["placeholder"] = "Confirm Password"
+
+   # Password Hashing
+   def __init__(self, *args, **kwargs):
+
+      super().__init__(*args, **kwargs)
+
+      for field in self.fields.values():
+
+         field.widget.attrs["class"] = "form-control"
+
+      self.fields["password1"].widget.attrs["placeholder"] = "Password"
+
+      self.fields["password2"].widget.attrs["placeholder"] = "Confirm Password"

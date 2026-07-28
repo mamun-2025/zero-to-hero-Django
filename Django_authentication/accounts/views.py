@@ -18,7 +18,7 @@ def register(request):
          form.save()
 
          return redirect(
-            "login"
+            "accounts:login"
          )
 
    else:
@@ -59,15 +59,15 @@ def user_login(request):
 
             login(request, user)
 
-            return redirect("home")
+            return redirect("accounts:dashboard")
 
-      return render(
-         request,
-         "accounts/login.html",
-         {
-            "form": form,
-         },
-      )
+   return render(
+      request,
+      "accounts/login.html",
+      {
+         "form": form,
+      },
+   )
 
 # AuthenticationForm নিজেই Valid User Return করতে পারে।
 
@@ -94,7 +94,7 @@ def user_logout(request):
 
    logout(request)
 
-   return redirect("Login")
+   return redirect("accounts:login")
 
 
 @login_required
@@ -102,5 +102,5 @@ def dashboard(request):
 
    return render(
       request,
-      "dashboard.html",
+      "accounts/dashboard.html",
    )
