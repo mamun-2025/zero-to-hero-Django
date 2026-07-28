@@ -51,4 +51,18 @@ class RegisterForm(UserCreationForm):
                "Phone number must be 11 digits."
             )
 
-         return phone 
+         return phone
+
+
+      # Password Hashing
+      def __init__(self, *args, **kwargs):
+
+         super().__init__(*args, **kwargs)
+
+         for field in self.fields.values():
+
+            field.widget.attrs["class"] = "form-control"
+
+         self.fields["password"].widget.attrs["placeholder"] = "Password"
+
+         self.fields["password2"].widget.attrs["placeholder"] = "Confirm Password"
