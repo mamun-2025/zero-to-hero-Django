@@ -6,19 +6,26 @@ from django.contrib.auth.decorators import login_required
 from .forms import ProfileUpdateForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib import messages
+
 
 
 def register(request):
 
-   if request.method == "POST":
+   form = RegisterForm(
+            request.POST or None
+         )
 
-      form = RegisterForm(
-         request.POST
-      )
+   if request.method == "POST":
 
       if form.is_valid():
 
          form.save()
+
+         messages.success(
+            request,
+            "Your account has been created successfully.",
+         )
 
          return redirect(
             "accounts:login"
@@ -58,11 +65,22 @@ def user_login(request):
             password=password,
          )
 
+         messages.success(
+            request,
+            "Welcome back!",
+         )
+
          if user is not None:
 
             login(request, user)
 
             return redirect("accounts:dashboard")
+
+      else:
+         messages.error(
+            request,
+            "Invalid username or password."
+         )
 
    return render(
       request,
@@ -96,6 +114,11 @@ def user_login(request):
 def user_logout(request):
 
    logout(request)
+
+   messages.info(
+      request,
+      "You have been logged out.",
+   )
 
    return redirect("accounts:login")
 
@@ -133,7 +156,12 @@ def profile_update(request):
 
          form.save()
 
-         return redirect("profile")
+         messages.success(
+            request,
+            "Profile updated successfully.",
+         )
+
+         return redirect("accounts:profile")
 
    return render(
       request,
@@ -170,6 +198,11 @@ def change_password(request):
          update_session_auth_hash(
             request,
             user,
+         )
+
+         messages.success(
+            request,
+            "Password changed successfylly.",
          )
 
          return redirect(
