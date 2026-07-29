@@ -72,7 +72,7 @@ def user_login(request):
 
          if request.POST.get("remember_me"):
 
-            request.session.set_expiray(
+            request.session.set_expiry(
                60 * 60 * 24 * 30
             )
 
