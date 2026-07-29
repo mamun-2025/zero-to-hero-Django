@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileUpdateForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 def register(request):
@@ -147,4 +149,38 @@ def home(request):
    return render(
       request, 
       "accounts/home.html",
+   )
+
+
+
+@login_required
+def change_password(request):
+
+   form = PasswordChangeForm(
+      user=request.user,
+      data=request.POST or None,
+   )
+
+   if request.method == "POST":
+
+      if form.is_valid():
+
+         user = form.save()
+
+         update_session_auth_hash(
+            request,
+            user,
+         )
+
+         return redirect(
+            "accounts:profile"
+         )
+
+
+   return render(
+      request,
+      "accounts/change_password.html",
+      {
+         "form": form,
+      },
    )

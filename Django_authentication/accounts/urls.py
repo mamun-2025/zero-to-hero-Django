@@ -13,5 +13,7 @@ urlpatterns = [
     path("dashboard/", views.dashboard, name="dashboard"),
     path("profile/", views.profile, name="profile"),
     path("profile/update/", views.profile_update, name="profile_update"),
+    path("change-password/", views.change_password, name="change_password"),
+    
     
 ]
