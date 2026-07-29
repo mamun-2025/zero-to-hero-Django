@@ -12,6 +12,7 @@ Dashboard
 
 <h1>Dashboard</h1>
 
-<p>Welcome {{ request.user.username }}</p>
+<p><strong>Welcome</strong> {{ request.user.username }}</p>\
+<p><strong>Last Login:</strong> {{ request.user.last_login|date:"d M Y, h:i A" }}</p>
 
 {% endblock %}

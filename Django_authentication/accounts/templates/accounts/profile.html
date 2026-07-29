@@ -6,12 +6,14 @@
 
 <h1>My Profile</h1>
 
-<p>Username: {{ request.user.username }}</p>
-<p>First Name: {{ request.user.first_name }}</p>
-<p>Last Name: {{ request.user.last_name }}</p>
-<p>Email: {{ request.user.email }}</p>
-<p>Phone: {{ request.user.phone }}</p>
-<p>Address: {{ request.user.address }}</p>
+<p><strong>Username:</strong> {{ request.user.username }}</p>
+<p><strong>First Name:</strong> {{ request.user.first_name }}</p>
+<p><strong>Last Name:</strong> {{ request.user.last_name }}</p>
+<p><strong>Email:</strong> {{ request.user.email }}</p>
+<p><strong>Joined:</strong> {{ request.user.date_joined|date:"d M Y" }}</p>
+<p><strong>Last Login:</strong> {{ request.user.last_login|date:"d M Y, h:i A" }}</p>
+<p><strong>Phone:</strong> {{ request.user.phone }}</p>
+<p><strong>Address:</strong> {{ request.user.address }}</p>
 
 <a href="{% url 'accounts:profile_update' %}">
    Edit Profile
