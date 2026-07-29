@@ -70,6 +70,16 @@ def user_login(request):
             "Welcome back!",
          )
 
+         if request.POST.get("remember_me"):
+
+            request.session.set_expiray(
+               60 * 60 * 24 * 30
+            )
+
+         else:
+            request.session.set_expiry(0)
+         
+
          if user is not None:
 
             login(request, user)
