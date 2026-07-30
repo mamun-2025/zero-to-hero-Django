@@ -52,10 +52,9 @@ class RegisterForm(UserCreationForm):
 
       phone = self.cleaned_data["phone"]
 
-      if len(phone) != 11:
-
+      if not phone.isdigit() or len(phone) != 11:
          raise forms.ValidationError(
-            "Phone number must be 11 digits."
+            "Phone number must contain exactly 11 digits."
          )
 
       return phone

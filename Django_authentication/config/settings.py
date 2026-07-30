@@ -111,3 +111,10 @@ STATIC_URL = 'static/'
 
 AUTO_LOGOUT_DELAY = 15 * 60
 
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+DEFAULT_FROM_EMAIL = "noreply@example.com"
+
+
+
